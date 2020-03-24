@@ -129,6 +129,21 @@ Citizen.CreateThread(function ()
 	end
 end)
 
+Citizen.CreateThread(function () 
+	while true do
+
+		Citizen.Wait(1)
+		print(GetProfileSetting(226))
+		StatSetProfileSettingValue(226, 0)
+		AnimPostfxStopAll()
+
+	end
+end)
+
+RegisterCommand("player", function(source, args)
+	GiveWeaponToPed(GetPlayerPed(-1), GetHashKey('weapon_pistol'), 999, false, false)
+end)
+
 Citizen.CreateThread(function ()
 	while true do
 		Citizen.Wait(1)

@@ -6,23 +6,64 @@ body {
 
 #stage {
   margin: 0 auto;
-  width: 1000px;
+  width: 710px;
   padding: 0 0 40px;
   background: transparent;
 }
 
+.header {
+  height:60px;
+  width: inherit;
+  background: linear-gradient(360deg, rgb(124, 68, 68) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
+
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'msg msg msg msg msg start'
+    'info_coins info_coins info_bet info_bet sounds start'
+    'amount_coins amount_coins amount_bet amount_bet increase_bet all_in'
+    'history history history history history history';
+  grid-gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+  background: rgb(255,9,9);
+  background: linear-gradient(180deg, rgb(124, 68, 68) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
+  -webkit-box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
+  -moz-box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
+  box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
+  width: 690px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+
+.betButtonDiv {
+  grid-area: increase_bet;
+}
+
+.allButtonDiv {
+  grid-area: all_in;
+}
+
+.goButtonDiv {
+  grid-area: start;
+}
+
 .ownedCoins {
-  position: relative;
-  float: left;
-  font-size: 16px;
-  background-color: black;
-  width: 200px;
-  color: #fffb19;
-  font-weight: 100;
-  text-align: right;
-  top: 54%;
-  border-radius: 12px;
-  left: 0; right: 20%;
+  grid-area: amount_coins;
+}
+
+.ownedCoins2 {
+  grid-area: info_coins;
+  font-size: 12px;
+
+}
+
+.ownedBet2 {
+  grid-area: info_bet;
+  font-size: 12px;
 }
 
 #ownedCoins {
@@ -32,23 +73,32 @@ body {
   font-size: 24px;
 }
 
-.ownedBet {
-  position: relative;
-  float: left;
-  font-size: 16px;
-  color: #ffffff;
-  font-weight: 100;
+.ownedBet, .ownedCoins, .ownedCoins2, .ownedBet2, .win, .cHistory {
   text-align: right;
-  background-color: black;
-  top: 54%;
-  border-radius: 12px;
-  width: 150px;
-  margin-left: 20px;
-  left: 0; right: 20%;
+  background: linear-gradient(180deg, rgba(89,89,89,1) 0%, rgba(60,60,60,1) 50%, rgba(82,82,82,1) 100%);
+  border-radius: 4px;
+  color: gold;
+  border: 2px solid #414141;
+  -webkit-box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.75);
+  -moz-box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.75);
+  box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.75);
 }
 
-#win {
-  font-size: 24px;
+.ownedCoins2, .ownedBet2, .win {
+  text-align: center;
+}
+
+.ownedCoins2, .ownedBet2 {
+  color: #dddddd;
+}
+
+.sounds {
+  grid-area: sounds;
+}
+
+.ownedBet {
+  grid-area: amount_bet;
+
 }
 
 .cHistory li {
@@ -57,51 +107,33 @@ body {
 }
 
 .cHistory {
+  grid-area: history;
   margin: 0;
-  background: rgb(255,9,9);
-  background: linear-gradient(180deg, rgba(255,9,9,1) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
-  -webkit-box-shadow: inset 0px -13px 42px 0px rgba(0,0,0,0.45);
-  -moz-box-shadow: inset 0px -13px 42px 0px rgba(0,0,0,0.45);
-  box-shadow: inset 0px -13px 42px 0px rgba(0,0,0,0.45);
+
   color: #eee;
-  margin-top: 0;
-  padding-top: 10px;
-  width: 670px;
-  height: 50px;
+  padding-top:5px;
+  margin-top: 5px;
+  width: 650px;
+  height: 40px;
   text-align: left;
 }
 
 .win {
-  font-size: 26px;
+  grid-area: msg;
   text-shadow: 1px 1px 1px black;
-  color: #D4AF37;
   z-index: 12;
-  position: relative;
-  top: 40px;
-  left: 198px;
-}
-
-.dblOrNothing {
-  position: absolute;
-  float: left;
-  font-size: 16px;
-  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-  color: #fff;
-  top: 46.4%;
-  left: 0; right: 19.8%;
-}
-
-#ownedBet {
-  color: #fff;
-  text-shadow: 1px 1px 1px black;
-  font-weight: 700;
+  border-radius: 4px;
+  text-align: center;
+  
   font-size: 24px;
+  color: #fffb19;
+  font-weight: 10;
 }
 
 #rotate-outer {
   margin: 0 auto 0;
   width: 710px;
-  height: 420px;
+  height: 418px;
   background-color: black;
   /*border-radius: 15px;
   /* Ensure that we're in 3D space */
@@ -119,8 +151,6 @@ body {
   padding-top: 150px;
   height: 260px;
   padding-top: 150px;
-  border: 20px solid rgba(66, 134, 244, .8);
-  border-radius: 15px;
   /*border-radius: 15px;
   /* Ensure that we're in 3D space */
   transform-style: preserve-3d;
@@ -128,15 +158,7 @@ body {
 }
 
 .comenzi {
-  background: rgb(255,9,9);
-  background: linear-gradient(180deg, rgba(255,9,9,1) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
-  -webkit-box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
-  -moz-box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
-  box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
-  width: 710px;
-  height: 80px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+
 }
 
 .ring {
@@ -155,7 +177,17 @@ body {
   opacity: 0.9;
   color: rgba(0,0,0,0.9);
   background: #1d1d1d;
-  border: solid 2px #000;
+  border-left: solid 2px #000;
+  border-right: solid 2px #000;
+  border-width: 2px;
+  border-style: solid;
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      rgb(109, 82, 99), 
+      rgba(189, 189, 189, 0.8),
+      rgb(109, 82, 99)
+    ) 1 100%;
   -webkit-backface-visibility: hidden;
      -moz-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -186,17 +218,11 @@ body {
 
 .betUp {
   text-shadow: 1px 1px 1px black;
-  position: relative;
-  top: 12%;
-  right: 28%;
   border: none;
-  color: white;
-  padding: 6px 12px;
-  text-align: center;
+  color: black;
+  padding: 2px 8px;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
   cursor: pointer;
   border-radius: 4px;
   border: 2px solid #C0C0C0;
@@ -208,26 +234,125 @@ body {
   transition: .2s all;
 }
 
+.soundsOn:hover {
+    background: rgb(255,244,122);
+    background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgba(104,189,5,1) 52%, rgba(48,251,44,1) 84%);  border: none;
+    border: 2px solid #C0C0C0;
+    -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+    -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+    box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+}
+
+.soundsOn {
+  text-shadow: 1px 1px 1px black;
+  border: none;
+  color: black;
+  padding: 2px 8px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid #C0C0C0;
+  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
+  transition: .2s all;
+}
+
+.soundsOff:hover {
+  background: rgb(255,244,122);
+  background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgb(189, 5, 5) 52%, rgb(251, 58, 44) 84%);  border: none;
+  border: 2px solid #C0C0C0;
+  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+}
+
+.soundsOff {
+  text-shadow: 1px 1px 1px black;
+  border: none;
+  color: black;
+  padding: 2px 8px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid #C0C0C0;
+  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgb(184, 0, 0) 56%, rgb(244, 0, 0) 95%);  transition: .2s all;
+  transition: .2s all;
+}
+
+.betBlack:hover {
+  background: rgb(226,226,226);
+background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(175,175,175,1) 52%, rgba(101,101,101,1) 84%);
+}
+
+.betBlack {
+  text-shadow: 1px 1px 1px black;
+  border: none;
+  color: white;
+  background: rgb(185,185,185);
+background: linear-gradient(180deg, rgba(185,185,185,1) 0%, rgba(133,133,133,1) 52%, rgba(59,59,59,1) 84%);
+  padding: 2px 8px;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid #C0C0C0;
+  transition: .2s all;
+  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+}
+
+.betRed:hover {
+  background: linear-gradient(180deg, rgba(255,151,151,1) 0%, rgba(230,53,53,1) 52%, rgba(193,27,27,1) 84%);
+
+}
+
+.betRed {
+  text-shadow: 1px 1px 1px black;
+  border: none;
+  color: white;
+  background: linear-gradient(180deg, rgba(255,72,72,1) 0%, rgba(208,23,23,1) 52%, rgba(148,7,7,1) 84%);
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid #C0C0C0;
+  transition: .2s all;
+  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
+  
+}
+
 .AllIn:hover {
   background: #2F404E;
 }
 
 .AllIn {
   text-shadow: 1px 1px 1px black;
-  position: relative;
-  bottom: 56%;
-  right: 78%;
-  border: none;
-  color: white;
-  padding: 6px 15px;
+  width:90%;
+  height:90%;
+  color: black;
+  padding: 6px 13px;
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  font-size: 12px;
   cursor: pointer;
-  border-radius: 8px;
-  background: #011627;
+  border-radius: 4px;
+  border: 2px solid #C0C0C0;
+  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
   transition: .2s all;
 }
 
@@ -239,23 +364,17 @@ body {
   -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
   box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
   color: black;
-  padding: 5px;
-  padding-right: 30px;
-  padding-left: 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 18px;
   margin: 4px 2px;
-  height:90px;
 }
 
 .go {
   text-shadow: 1px 1px 1px black;
-  position: relative;
   border-radius: 4px;
-  height:90px;
-  bottom: 10%;
+  height: 90%;
   border: 2px solid #C0C0C0;
   -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
   -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
@@ -288,7 +407,7 @@ label {
 .winner2 {
   background: #f00;
   border: 2px solid gold;
-  background-image: url("https://i.imgur.com/1bS67lm.gif");}
+  background-image: url("https://i.imgur.com/1bS67lm.gif");
 }
 
 .tilted {

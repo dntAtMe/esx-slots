@@ -56,8 +56,10 @@ var backBet = bet * 2;
 
 var rolling = 0;
 
+var shouldPlayAudio = true;
+
 function playAudio(audioName) {
-  if($('#sounds').is(':checked')) {
+  if(shouldPlayAudio) {
     for(var i = 0; i < audioIds.length; i++) {
       if(audioIds[i] == audioName) {
         audios[i].play();
@@ -69,7 +71,7 @@ function playAudio(audioName) {
 function insertCoin(amount) {
   coins += amount;
   backCoins = coins * 2;
-  $('#ownedCoins').empty().append(coins);
+  $('.ownedCoins').empty().append(coins);
 }
 function setBet(amount) {
   if(amount > 0) {
@@ -78,7 +80,7 @@ function setBet(amount) {
     }
     bet = amount;
     backBet = bet * 2;
-    $('#ownedBet').empty().append(bet);
+    $('.ownedBet').empty().append(bet);
     playAudio("changeBet");
   }
 }
@@ -120,7 +122,7 @@ function getSeed() {
 
 function setWinner(cls, level) {
   if(level >= 1) {
-    var cl = (z == 1) ? 'winner1' : 'winner2';
+    var cl = (level == 1) ? 'winner1' : 'winner2';
     $(cls).addClass(cl);
   }
 }
@@ -135,13 +137,15 @@ var colorHistory = [-1];
 var dubleDate = 0;
 
 function endWithWin(x, sound) {
-  $('#win').empty().append(x);
-  $('.win').show();
-  $('.dblOrNothing').show();
+  $('.win').empty().append('Won $' + x);
 
-  $('.betUp').empty().append("RED");
-  $('.AllIn').empty().append("BLACK");
-  $('.go').empty().append("COLLECT");
+  $('#betUp').empty().append("R");
+  $('#betUp').removeAttr('class');
+  $('#betUp').attr('class', 'betRed');
+  $('#betDown').empty().append("B");
+  $('#betDown').removeAttr('class');
+  $('#betDown').attr('class', 'betBlack');
+  
 
   canDouble = x;
 
@@ -157,12 +161,14 @@ function endWithWin(x, sound) {
 function looseDouble() {
   canDouble = 0;
   dubleDate = 0;
-  $('.win').hide();
-  $('.dblOrNothing').hide();
+  $('.win').empty().append("Please place your bet");
 
-  $('.betUp').empty().append("+BET");
-  $('.AllIn').empty().append("ALL IN");
-  $('.go').empty().append("ROLL");
+  $('#betUp').empty().append("+");
+  $('#betUp').removeAttr('class');
+  $('#betUp').attr('class', 'betUp');
+  $('#betDown').empty().append("-");
+  $('#betDown').removeAttr('class');
+  $('#betDown').attr('class', 'betUp');
 }
 
 function voteColor(x, color) {
@@ -336,9 +342,15 @@ function pressROLL() {
   //}
 }
 
+function pressAUDIO() {
+  shouldPlayAudio = !shouldPlayAudio;
+  $('#sounds').removeAttr('class');
+  $('#sounds').attr('class', shouldPlayAudio ? 'soundsOn' : 'soundsOff');
+}
+
 function pressBLACK() {
   if(canDouble == 0) {
-    setBet(coins);
+    setBet(bet - 50);
   } else {
     voteColor(canDouble, 1);
   }
@@ -447,12 +459,12 @@ $(document).ready(function() {
       audios[i].volume = 0.09;
     }
   }
-
-  $('.win').show();
+  
+  //$('.win').hide();
   $('.dblOrNothing').hide();
 
-  $('#ownedCoins').empty().append(coins);
-  $('#ownedBet').empty().append(bet);
+  $('.ownedCoins').empty().append(coins);
+  $('.ownedBet').empty().append(bet);
 
   $('body').keyup(function(e){
     $(':focus').blur();
@@ -476,12 +488,20 @@ $(document).ready(function() {
     }
   });
 
-  $('.betUp').on('click', function(){ // RED
+  $('#betUp').on('click', function(){ // RED
     pressRED();
   })
 
-  $('.AllIn').on('click', function(){ // BLACK
+  $('#betDown').on('click', function(){ // BLACK
     pressBLACK();
+  }) 
+
+  $('#sounds').on('click', function(){ // BLACK
+    pressAUDIO();
+  }) 
+  
+  $('.AllIn').on('click', function(){ // BLACK
+    pressALL();
   })
 
  	$('.go').on('click',function(){ // COLLECT
