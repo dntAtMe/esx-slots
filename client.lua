@@ -129,14 +129,106 @@ Citizen.CreateThread(function ()
 	end
 end)
 
+effects = {
+"SwitchHUDIn",
+"SwitchHUDOut",
+"FocusIn",
+"FocusOut",
+"MinigameEndNeutral",
+"MinigameEndTrevor",
+"MinigameEndFranklin",
+"MinigameEndMichael",
+"MinigameTransitionOut",
+"MinigameTransitionIn",
+"SwitchShortNeutralIn",
+"SwitchShortFranklinIn",
+"SwitchShortTrevorIn",
+"SwitchShortMichaelIn",
+"SwitchOpenMichaelIn",
+"SwitchOpenFranklinIn",
+"SwitchOpenTrevorIn",
+"SwitchHUDMichaelOut",
+"SwitchHUDFranklinOut",
+"SwitchHUDTrevorOut",
+"SwitchShortFranklinMid",
+"SwitchShortMichaelMid",
+"SwitchShortTrevorMid",
+"DeathFailOut",
+"CamPushInNeutral",
+"CamPushInFranklin",
+"CamPushInMichael",
+"CamPushInTrevor",
+"SwitchOpenMichaelIn",
+"SwitchSceneFranklin",
+"SwitchSceneTrevor",
+"SwitchSceneMichael",
+"SwitchSceneNeutral",
+"MP_Celeb_Win",
+"MP_Celeb_Win_Out",
+"MP_Celeb_Lose",
+"MP_Celeb_Lose_Out",
+"DeathFailNeutralIn",
+"DeathFailMPDark",
+"DeathFailMPIn",
+"MP_Celeb_Preload_Fade",
+"PeyoteEndOut",
+"PeyoteEndIn",
+"PeyoteIn",
+"PeyoteOut",
+"MP_race_crash",
+"SuccessFranklin",
+"SuccessTrevor",
+"SuccessMichael",
+"DrugsMichaelAliensFightIn",
+"DrugsMichaelAliensFight",
+"DrugsMichaelAliensFightOut",
+"DrugsTrevorClownsFightIn",
+"DrugsTrevorClownsFight",
+"DrugsTrevorClownsFightOut",
+"HeistCelebPass",
+"HeistCelebPassBW",
+"HeistCelebEnd",
+"HeistCelebToast",
+"MenuMGHeistIn",
+"MenuMGTournamentIn",
+"MenuMGSelectionIn",
+"ChopVision",
+"DMT_flight_intro",
+"DMT_flight",
+"DrugsDrivingIn",
+"DrugsDrivingOut",
+"SwitchOpenNeutralFIB5",
+"HeistLocate",
+"MP_job_load",
+"RaceTurbo",
+"MP_intro_logo",
+"HeistTripSkipFade",
+"MenuMGHeistOut",
+"MP_corona_switch",
+"MenuMGSelectionTint",
+"SuccessNeutral",
+"ExplosionJosh3",
+"SniperOverlay",
+"RampageOut",
+"Rampage",
+"Dont_tazeme_bro",
+"DeathFailOut"
+}
+
 Citizen.CreateThread(function () 
 	while true do
+		if IsScreenblurFadeRunning() then
+			print("yes")
+		end
+		for cnt = 1, #effects do
+			isPlayed = AnimpostfxIsRunning(effects[cnt])
+			if isPlayed then
+				print(effects[cnt], ' ', isPlayed)
+				StatSetProfileSettingValue(226, -1)
 
-		Citizen.Wait(1)
-		print(GetProfileSetting(226))
-		StatSetProfileSettingValue(226, 0)
-		AnimPostfxStopAll()
-
+			end
+		end
+		Citizen.Wait(0)
 	end
 end)
 
