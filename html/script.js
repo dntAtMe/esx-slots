@@ -229,17 +229,18 @@ function spin(timer) {
     }
 
     var pos = diamondPos === -1 ? 0 : diamondPos;
+    wins = diamondPos === -1 ? wins : wins - 1;
     console.log("POS", pos);
-    console.log("winTable", winTable[table[lines[k][pos][0]][1]-1][wins-1]);
+    console.log("winTable", winTable[table[lines[k][pos][0]][1]-1][wins]);
     console.log("table", table[lines[k][pos][0]][1]);
     if(lvl > 0) {
-      winnings = winnings + bet * winTable[table[lines[k][pos][0]][1]-1][wins-1];
+      winnings = winnings + bet * winTable[table[lines[k][pos][0]][1]-1][wins];
       setTimeout(endWithWin, 4400, winnings, 0);
     }
 
-    var finalPos = parseInt(pos) + wins + (diamondPos === -1 ? 1 : 0)
+    var finalPos = parseInt(pos) + wins + 1
     for(var p = pos; p < finalPos; p++) {
-      setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * k * 1000, cords[lines[k][p][0]][1], lvl);
+      setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * 1000, cords[p][1], lvl);
     }
   }
   setTimeout(function(){ rolling = 0; }, 4500);
