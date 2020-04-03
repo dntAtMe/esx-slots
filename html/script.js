@@ -30,7 +30,7 @@ var audioIds = [
 ];
 
 var coins = 1000;
-var bet = 50;
+var bet = 1;
 
 var backCoins = coins * 2;
 var backBet = bet * 2;
@@ -57,7 +57,7 @@ function insertCoin(amount) {
 function setBet(amount) {
   if(amount > 0) {
     if(amount > coins) {
-      amount = 50;
+      amount = 1;
     }
     bet = amount;
     backBet = bet * 2;
@@ -233,7 +233,7 @@ function spin(timer) {
     console.log("winTable", winTable[table[lines[k][pos][0]][1]-1][wins-1]);
     console.log("table", table[lines[k][pos][0]][1]);
     if(lvl > 0) {
-      winnings = winnings + (bet) / 50 * winTable[table[lines[k][pos][0]][1]-1][wins-1];
+      winnings = winnings + (bet) / 1 * winTable[table[lines[k][pos][0]][1]-1][wins-1];
       setTimeout(endWithWin, 4400, winnings, 0);
     }
 
@@ -263,7 +263,7 @@ function pressROLL() {
       rolling = 1;
       var timer = 2;
       spin(timer);
-    } else if(bet != coins && bet != 50) {
+    } else if(bet != coins && bet != 1) {
       setBet(coins);
     }
     
@@ -281,11 +281,11 @@ function pressALL() {
 }
 
 function pressBLACK() {
-    setBet(bet - 50);
+    setBet(bet - 1);
 }
 
 function pressRED() {
-    setBet(bet + 50);
+    setBet(bet + 1);
 }
 
 var allFile;
@@ -375,9 +375,9 @@ $(document).ready(function() {
         break;
       case 39: pressBLACK(); // right-arrow
         break;
-      case 38: setBet(bet + 50); // creste BET
+      case 38: setBet(bet + 1); // creste BET
         break;
-      case 40: setBet(bet - 50); // scade BET
+      case 40: setBet(bet - 1); // scade BET
         break;
       case 27: togglePacanele(false, 0); // ESC
         break;
