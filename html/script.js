@@ -2,14 +2,29 @@ var lines = [
   [[0,1], [1,1], [2,1]],
 ];
 
+var chancesTable = [
+  7,6,1,4,1,5,3
+]
+
+function calcChance(rolled) {
+  for (var i = 0; i < chancesTable.length; i++) {
+    if (rolled > 0) {
+      rolled -= chancesTable[i];
+    } else {
+      return i;
+    }
+  }
+  return
+}
+
 var winTable = [
-  [0, 0, 12500],
-  [0, 0, 25000], 
-  [0, 0, 500000],
+  [0, 0, 1250],
+  [0, 0, 2500], 
   [0, 0, 50000],
-  [1000, 2500, 250000],
-  [0, 0, 37500],
-  [0, 0, 125000]
+  [0, 0, 5000],
+  [1000, 2500, 25000],
+  [0, 0, 3750],
+  [0, 0, 12500]
 ];
 
 const SLOTS_PER_REEL = 12;
@@ -78,11 +93,11 @@ function createSlots(ring, id) {
 		var transform = 'rotateX(' + (slotAngle * i) + 'deg) translateZ(' + REEL_RADIUS + 'px)';
 		slot.style.transform = transform;
 
-    var imgID = (seed + i)%7 + 1;
+    var imgID = (seed + i)% chancesTable.reduce((a,b) => a + b, 0);
     seed = getSeed();
-    if (imgID == 7) {
-      imgID = (seed + i)%7 + 1;
-    }
+
+    imgID = calcChance(imgID);
+    console.log("imgID", imgID);
 
     slot.className = 'slot' + ' fruit' + imgID;
     slot.id = id + 'id' + i;
@@ -372,9 +387,7 @@ $(document).ready(function() {
         break;
       case 13: pressROLL(); // enter
         break;
-      case 37: pressRED(); // left-arrow
-        break;
-      case 39: pressBLACK(); // right-arrow
+      case 39: pressALL(); // right-arrow
         break;
       case 38: setBet(bet + 1); // creste BET
         break;
