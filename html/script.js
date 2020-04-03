@@ -96,7 +96,7 @@ function createSlots(ring, id) {
     var imgID = (seed + i)% chancesTable.reduce((a,b) => a + b, 0);
     seed = getSeed();
 
-    imgID = calcChance(imgID);
+    imgID = calcChance(imgID) + 1;
     console.log("imgID", imgID);
 
     slot.className = 'slot' + ' fruit' + imgID;
