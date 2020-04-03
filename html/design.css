@@ -2,154 +2,114 @@ body {
   margin: 0;
   padding: 0;
   font-family: Impact, Charcoal, sans-serif;
+  
 }
 
 #stage {
-  margin: 0 auto;
-  width: 1000px;
-  padding: 0 0 40px;
-  background: transparent;
+position: absolute;
 }
 
-.ownedCoins {
-  position: absolute;
-  float: left;
-  font-size: 16px;
-  background-color: black;
-  width: 200px;
-  padding-left: 20px;
-  padding-right: 20px;
-  color: #fffb19;
-  font-weight: 100;
-  text-align: right;
-  top: 54%;
-  border-radius: 12px;
-  left: 0; right: 20%;
-}
-
-#ownedCoins {
-  color: #fff;
-  text-shadow: 1px 1px 1px black;
-  font-weight: 100;
-  font-size: 24px;
-}
-
-.ownedBet {
-  position: absolute;
-  float: left;
-  font-size: 24px;
-  color: #011627;
-  font-weight: 300;
-  top: 51.2%;
-  left: 0; right: 20%;
-}
-
-#win {
-  font-size: 24px;
-}
-
-.cHistory li {
-  display: inline;
-  margin-left: 10px;
-}
-
-.cHistory {
-  margin: 0;
-  background: rgb(255,9,9);
-  background: linear-gradient(180deg, rgba(255,9,9,1) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
-  -webkit-box-shadow: inset -4px -34px 34px -18px rgba(0,0,0,0.75);
-  -moz-box-shadow: inset -4px -34px 34px -18px rgba(0,0,0,0.75);
-  box-shadow: inset -4px -34px 34px -18px rgba(0,0,0,0.75);
-  color: #eee;
-  margin-top: 0;
-  padding-top: 10px;
-  width: 670px;
-  height: 50px;
-  text-align: left;
-}
-
-.win {
-  font-size: 26px;
-  text-shadow: 1px 1px 1px black;
-  color: #D4AF37;
-  z-index: 12;
+.header {
   position: relative;
-  top: 40px;
-  left: 198px;
+  margin: 0 auto;
+  width: 781px;
+  background: transparent;
+  background-image: url("img/all.png");
+  height: 690px;
+  z-index: 2;
 }
 
-.dblOrNothing {
-  position: absolute;
+.bet {
+  position: relative;
+  bottom: 218px;
+  
+}
+
+.coins {
+  position: relative;
+  bottom: 165px;
+}
+
+.description {
+  position: relative;
+  color: gold;
+  font-size: 22px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  z-index: 3;
+}
+
+.info {
+  position: relative;
+  bottom: 284px;
   float: left;
-  font-size: 16px;
-  text-shadow: 1px 1px 1px rgba(0,0,0,.5);
-  color: #fff;
-  top: 46.4%;
-  left: 0; right: 19.8%;
+  left: 60px;
 }
 
-#ownedBet {
-  color: #fff;
-  text-shadow: 1px 1px 1px black;
-  font-weight: 700;
-  font-size: 32px;
+.value {
+  position: relative;
+  color: #fff9d7;
+  font-size: 22px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  bottom: 4px;
+
+  z-index: 3;
 }
 
-#rotate-outer {
-  margin: 0 auto 0;
-  width: 710px;
-  height: 410px;
-  background-color: black;
-  /*border-radius: 15px;
-  /* Ensure that we're in 3D space */
-  transform-style: preserve-3d;
-  background: rgb(111,0,71);
-  background: linear-gradient(180deg, rgba(111,0,71,1) 0%, rgba(184,0,102,1) 47%, rgba(131,0,73,1) 95%);
-  -moz-box-shadow:    inset 0 0 10px #000000;
-  -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;
+.go {
+  position: relative;
+  width: 80px;
+  height: 40px;
+  opacity: 0%;
+  bottom: 51px;
+  z-index: 101;
+}
+
+.betUp {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  opacity: 0%;
+  float: left;
+  bottom: 92px;
+  right: 330px;
+  z-index: 3;
+}
+
+.allIn {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  opacity: 00%;
+  float: left;
+  right: 286px;
+  bottom: 92px;
+  z-index: 3;
 }
 
 #rotate {
-  margin: 0 auto 0;
-  width: 630px;
-  padding-top: 150px;
-  height: 410px;
-  /*border-radius: 15px;
-  /* Ensure that we're in 3D space */
-  transform-style: preserve-3d;
-
-}
-
-.comenzi {
-  background: rgb(255,9,9);
-  background: linear-gradient(180deg, rgba(255,9,9,1) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
-  -webkit-box-shadow: inset -1px -187px 36px -75px rgba(0,0,0,0.34);
-  -moz-box-shadow: inset -1px -187px 36px -75px rgba(0,0,0,0.34);
-  box-shadow: inset -1px -187px 36px -75px rgba(0,0,0,0.34);
-  width: 710px;
-  height: 80px;
-  padding-top: 30px;
-  padding-bottom: 15px;
+  position: relative;
+  bottom: 355px;
+  left: 175px;
 }
 
 .ring {
+  position: relative;
   margin: 0 auto;
-  height: 112px;
-  width: 126px;
+  height: 70px;
+  width: 146px;
   float: left;
   transform-style: preserve-3d;
 
 }
 .slot {
   position: absolute;
-  width: 126px;
-  height: 112px;
+  width: 130px;
+  height: 70px;
   box-sizing: border-box;
+  background-color: #fff9d7;
+  
   opacity: 0.9;
   color: rgba(0,0,0,0.9);
-  background: #1d1d1d;
-  border: solid 2px #000;
   -webkit-backface-visibility: hidden;
      -moz-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -164,92 +124,11 @@ body {
 .slot p {
   font-size: 36px;
   font-weight: bold;
-  line-height: 112px;
+  line-height: 90px;
   margin: 0;
   text-align: center;
 }
 
-.betUp:hover {
-  background: #F37071;
-}
-
-.betUp {
-  text-shadow: 1px 1px 1px black;
-  position: absolute;
-  left: 36%;
-  top: 48%;
-  border: none;
-  color: white;
-  padding: 6px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 8px;
-  background: #F15152;
-  transition: .2s all;
-}
-
-.AllIn:hover {
-  background: #2F404E;
-}
-
-.AllIn {
-  text-shadow: 1px 1px 1px black;
-  position: absolute;
-  left: 40%;
-  top: 48%;
-  border: none;
-  color: white;
-  padding: 6px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 8px;
-  background: #011627;
-  transition: .2s all;
-}
-
-.go:hover {
-  background: rgb(255,244,122);
-  background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgba(104,189,5,1) 52%, rgba(48,251,44,1) 84%);  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-}
-
-.go {
-  text-shadow: 1px 1px 1px black;
-  position: absolute;
-
-  left: 58%;
-  top: 49%;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  color: black;
-  padding: 5px;
-  padding-right: 30px;
-  padding-left: 30px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 12px;
-  margin: 4px 2px;
-  cursor: pointer;
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
-}
 label {
   cursor: pointer;
   display: inline-block;
@@ -258,13 +137,11 @@ label {
 }
 
 .winner1 {
-  background: rgba(218, 0, 0, 0.719);
-  border: 2px solid D4AF37;
+  background: radial-gradient(circle, rgba(255,249,215,1) 9%, rgba(221,198,121,1) 30%, rgba(255,249,215,1) 45%);
 }
 .winner2 {
-  background: rgba(218, 0, 0, 0.719);
-  border: 2px solid D4AF37;
-  background-image: url("https://img1.picmix.com/output/stamp/normal/8/6/7/0/340768_64cf9.gif");
+  background: radial-gradient(circle, rgba(255,249,215,1) 32%, rgba(237,215,142,1) 50%, rgba(255,249,215,1) 85%);
+  background-image: url("https://.imgur.com/1bS67lm.gif");
 }
 
 .tilted {

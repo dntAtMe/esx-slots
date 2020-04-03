@@ -1,9 +1,3 @@
--- This resource was made by plesalex100#7387
--- Please respect it, don't repost it without my permission
--- This Resource started from: https://codepen.io/AdrianSandu/pen/MyBQYz
--- ESX Version: saNhje & wUNDER
-
-
 ESX                             = nil
 local PlayerData                = {}
 local open 						= false
@@ -121,7 +115,7 @@ Citizen.CreateThread(function ()
 				x = i
 				wTime = 0
 				langaAparat = true
-				ESX.ShowHelpNotification('Press ~INPUT_PICKUP~ to test your luck at slot machine')
+				ESX.ShowHelpNotification('Press ~INPUT_PICKUP~ to test your luck')
 			elseif GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), Config.Slots[x].x, Config.Slots[x].y, Config.Slots[x].z, true) > 4 then
 				wTime = 500
 			end
