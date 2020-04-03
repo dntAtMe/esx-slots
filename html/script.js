@@ -56,7 +56,7 @@ function insertCoin(amount) {
 }
 function setBet(amount) {
   if(amount > 0) {
-    if(amount > coins) {
+    if(amount > 50) {
       amount = 1;
     }
     bet = amount;
@@ -233,7 +233,7 @@ function spin(timer) {
     console.log("winTable", winTable[table[lines[k][pos][0]][1]-1][wins-1]);
     console.log("table", table[lines[k][pos][0]][1]);
     if(lvl > 0) {
-      winnings = winnings + (bet) / 1 * winTable[table[lines[k][pos][0]][1]-1][wins-1];
+      winnings = winnings + bet * winTable[table[lines[k][pos][0]][1]-1][wins-1];
       setTimeout(endWithWin, 4400, winnings, 0);
     }
 
