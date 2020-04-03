@@ -277,7 +277,7 @@ function pressAUDIO() {
 }
 
 function pressALL() {
-    setBet(coins);
+    setBet((coins > 50 ? 50 : coins));
 }
 
 function pressBLACK() {
