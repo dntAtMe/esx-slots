@@ -3,18 +3,17 @@ var lines = [
 ];
 
 var chancesTable = [
-  7,6,1,4,1,5,3
+  3,3,1,2,1,2,2
 ]
 
 function calcChance(rolled) {
   for (var i = 0; i < chancesTable.length; i++) {
-    if (rolled > 0) {
-      rolled -= chancesTable[i];
-    } else {
+    rolled -= chancesTable[i];
+    if (rolled <= 0) {
       return i;
-    }
+    } 
   }
-  return
+  return -1;
 }
 
 var winTable = [
@@ -59,6 +58,7 @@ function playAudio(audioName) {
     for(var i = 0; i < audioIds.length; i++) {
       if(audioIds[i] == audioName) {
         audios[i].play();
+        
       }
     }
   }
@@ -175,6 +175,7 @@ function spin(timer) {
 
     var pSeed = seed
     for(var j = 1; j <= 5; j++) {
+      console.log("j", j)
       pSeed += 1;
       if(pSeed == 12) {
         pSeed = 0;
@@ -194,14 +195,6 @@ function spin(timer) {
             tbl3[z] = reverseStr(msg)[0];
             crd3[z] = '#' + i + 'id' + pSeed
             break;
-          case 4:
-            tbl4[z] = reverseStr(msg)[0];
-            crd4[z] = '#' + i + 'id' + pSeed
-            break;
-          case 5:
-            tbl5[z] = reverseStr(msg)[0];
-            crd5[z] = '#' + i + 'id' + pSeed
-            break;
         }
         z -= 1;
       }
@@ -211,7 +204,7 @@ function spin(timer) {
 			.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.5) + 's')
 			.attr('class','ring spin-' + seed);
 	}
-  var table = [tbl1,tbl2,tbl3];
+  var table = [tbl1,tbl2,tbl3, ];
   var cords = [crd1,crd2,crd3];
 
   for(var k in lines) {
@@ -245,9 +238,6 @@ function spin(timer) {
 
     var pos = diamondPos === -1 ? 0 : diamondPos;
     wins = diamondPos === -1 ? wins : wins - 1;
-    console.log("POS", pos);
-    console.log("winTable", winTable[table[lines[k][pos][0]][1]-1][wins]);
-    console.log("table", table[lines[k][pos][0]][1]);
     if(lvl > 0) {
       winnings = winnings + bet * winTable[table[lines[k][pos][0]][1]-1][wins];
       setTimeout(endWithWin, 4400, winnings, 0);
@@ -310,8 +300,9 @@ function resetRings() {
   var rng1 = $("#ring1"),
       rng2 = $("#ring2"),
       rng3 = $("#ring3")
+      rng3 = $("#ring4")
 
-  rng1.empty()
+  rng1.empty() 
     .removeClass()
     .addClass("ring")
     .removeAttr('id')
@@ -323,15 +314,22 @@ function resetRings() {
     .removeAttr('id')
     .attr('id', 'ring2');
 
-  rng3.empty()
+    rng3.empty()
     .removeClass()
     .addClass("ring")
     .removeAttr('id')
     .attr('id', 'ring3');
 
+    rng4.empty()
+    .removeClass()
+    .addClass("ring")
+    .removeAttr('id')
+    .attr('id', 'ring4');
+
   createSlots($('#ring1'), 1);
   createSlots($('#ring2'), 2);
   createSlots($('#ring3'), 3);
+  createSlots($('#ring4'), 4);
 }
 
 function togglePacanele(start, banuti) {
@@ -366,12 +364,17 @@ $(document).ready(function() {
   createSlots($('#ring1'), 1);
  	createSlots($('#ring2'), 2);
  	createSlots($('#ring3'), 3);
+ 	createSlots($('#ring4'), 4);
   for(var i = 0; i < audioIds.length; i++) {
     audios[i] = document.createElement('audio');
     audios[i].setAttribute('src', 'audio/' + audioIds[i] + '.wav');
     audios[i].volume = 0.6;
     if(audioIds[i] == "seInvarte") {
+      audios[i].id = 'rollingAudio';
       audios[i].volume = 0.09;
+      audios[i].addEventListener("timeupdate", function () {
+        if (this.currentTime >= 3.5) { this.pause();  this.currentTime = 0; }
+      }); 
     }
   }
   
