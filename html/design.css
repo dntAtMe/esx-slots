@@ -16,16 +16,80 @@ position: absolute;
   background: transparent;
   background-image: url("img/all.png");
   height: 690px;
-  z-index: 100;
+  z-index: 2;
 }
-#rotate-outer {
 
+.bet {
+  position: relative;
+  bottom: 218px;
+  
+}
+
+.coins {
+  position: relative;
+  bottom: 165px;
+}
+
+.description {
+  position: relative;
+  color: gold;
+  font-size: 22px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  z-index: 3;
+}
+
+.info {
+  position: relative;
+  bottom: 284px;
+  float: left;
+  left: 60px;
+}
+
+.value {
+  position: relative;
+  color: #fff9d7;
+  font-size: 22px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  bottom: 4px;
+
+  z-index: 3;
+}
+
+.go {
+  position: relative;
+  width: 80px;
+  height: 40px;
+  opacity: 0%;
+  bottom: 51px;
+  z-index: 101;
+}
+
+.betUp {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  opacity: 0%;
+  float: left;
+  bottom: 92px;
+  right: 330px;
+  z-index: 3;
+}
+
+.allIn {
+  position: relative;
+  height: 40px;
+  width: 40px;
+  opacity: 00%;
+  float: left;
+  right: 286px;
+  bottom: 92px;
+  z-index: 3;
 }
 
 #rotate {
   position: relative;
-  bottom: 345px;
-  left: 205px;
+  bottom: 355px;
+  left: 175px;
 }
 
 .ring {
@@ -39,9 +103,11 @@ position: absolute;
 }
 .slot {
   position: absolute;
-  width: 72px;
+  width: 130px;
   height: 70px;
   box-sizing: border-box;
+  background-color: #fff9d7;
+  
   opacity: 0.9;
   color: rgba(0,0,0,0.9);
   -webkit-backface-visibility: hidden;
@@ -58,7 +124,7 @@ position: absolute;
 .slot p {
   font-size: 36px;
   font-weight: bold;
-  line-height: 50px;
+  line-height: 90px;
   margin: 0;
   text-align: center;
 }
@@ -71,13 +137,11 @@ label {
 }
 
 .winner1 {
-  background: #f00;
-  border: 2px solid gold;
+  background: radial-gradient(circle, rgba(255,249,215,1) 9%, rgba(221,198,121,1) 30%, rgba(255,249,215,1) 45%);
 }
 .winner2 {
-  background: #f00;
-  border: 2px solid gold;
-  background-image: url("https://i.imgur.com/1bS67lm.gif");
+  background: radial-gradient(circle, rgba(255,249,215,1) 32%, rgba(237,215,142,1) 50%, rgba(255,249,215,1) 85%);
+  background-image: url("https://.imgur.com/1bS67lm.gif");
 }
 
 .tilted {

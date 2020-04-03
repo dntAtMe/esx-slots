@@ -3,14 +3,13 @@ var lines = [
 ];
 
 var winTable = [
-  [0],
-  [1,1,3,5,10],
-  [1,1,4,10,15], 
-  [1,1,4,10,15],
-  [1,1,4,10,15],
-  [1,1,10,20,50],
-  [1,1,10,20,50],
-  [1,1,20,150,600]
+  [0, 0, 12500],
+  [0, 0, 25000], 
+  [0, 0, 500000],
+  [0, 0, 50000],
+  [1000, 2500, 250000],
+  [0, 0, 37500],
+  [0, 0, 125000]
 ];
 
 const SLOTS_PER_REEL = 12;
@@ -79,10 +78,10 @@ function createSlots(ring, id) {
 		var transform = 'rotateX(' + (slotAngle * i) + 'deg) translateZ(' + REEL_RADIUS + 'px)';
 		slot.style.transform = transform;
 
-    var imgID = (seed + i)%4 + 1;
+    var imgID = (seed + i)%7 + 1;
     seed = getSeed();
-    if (imgID == 4) {
-      imgID = (seed + i)%4 + 1;
+    if (imgID == 7) {
+      imgID = (seed + i)%7 + 1;
     }
 
     slot.className = 'slot' + ' fruit' + imgID;
@@ -119,17 +118,7 @@ var colorHistory = [-1];
 var dubleDate = 0;
 
 function endWithWin(x, sound) {
-  $('.win').empty().append('Won $' + x);
-
-  $('#betUp').empty().append("R");
-  $('#betUp').removeAttr('class');
-  $('#betUp').attr('class', 'betRed');
-  $('#betDown').empty().append("B");
-  $('#betDown').removeAttr('class');
-  $('#betDown').attr('class', 'betBlack');
-  
-
-  canDouble = x;
+  $('.info').empty().append('Won $' + x);
 
   if(sound == 1) { // WinAtDouble
     playAudio("winDouble");
@@ -138,42 +127,19 @@ function endWithWin(x, sound) {
       pressROLL();
     }
   }
+
+  canDouble = x;
+  
+  if( canDouble ) {
+    setTimeout(insertCoin, 200, canDouble);
+    playAudio("collect");
+    looseDouble();
+  }
 }
 
 function looseDouble() {
   canDouble = 0;
   dubleDate = 0;
-  $('.win').empty().append("Please place your bet");
-
-  $('#betUp').empty().append("+");
-  $('#betUp').removeAttr('class');
-  $('#betUp').attr('class', 'betUp');
-  $('#betDown').empty().append("-");
-  $('#betDown').removeAttr('class');
-  $('#betDown').attr('class', 'betUp');
-}
-
-function voteColor(x, color) {
-  var rcolor = Math.floor(Math.random()*(2));
-  colorHistory[colorHistory.length] = rcolor;
-
-  var pls = 1;
-  for(var cont = colorHistory.length; cont >= colorHistory.length-8; cont--) {
-    var imgColor = "none";
-    if(colorHistory[cont] == 1) { imgColor = 'black'; }
-    if(colorHistory[cont] == 0) { imgColor = 'red'; }
-    $('#h' + pls).empty();
-    if(imgColor !== "none") {
-      $('#h' + pls).append("<img src='img/" + imgColor + ".png' width=30px height=30px/>");
-      pls++;
-    }
-  }
-
-  if(rcolor == color) {
-    endWithWin(x*2, 1);
-  } else {
-    looseDouble();
-  }
 }
 
 function spin(timer) {
@@ -230,49 +196,50 @@ function spin(timer) {
 			.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.5) + 's')
 			.attr('class','ring spin-' + seed);
 	}
-  var table = [tbl1,tbl2,tbl3,tbl4,tbl5];
-  var cords = [crd1,crd2,crd3,crd4,crd5];
+  var table = [tbl1,tbl2,tbl3];
+  var cords = [crd1,crd2,crd3];
 
   for(var k in lines) {
-    var wins = 0, last = table[lines[k][0][0]][lines[k][0][1]], lvl = 0, lasx;
+    var wins = 0, last = "-1", lvl = 0, lasx;
+    var diamondPos = -1;
 
-    for(var x = 1 in lines[k]) {
-      //|| last == "Septar" || table[lines[k][x][0]][lines[k][x][1]] == "Septar"
-
-      if(last == table[lines[k][x][0]][lines[k][x][1]]) {
-        wins++;
-        //if(table[lines[k][x][0]][lines[k][x][1]] !== "Septar") {
-        //}
+    for(var x = 0 in lines[k]) {
+      var current = table[lines[k][x][0]][lines[k][x][1]]
+      console.log("current", current);
+      console.log("last", last);
+      console.log("wins", wins);
+      if (current === "5" && diamondPos === -1) {
+        wins = 1;
+        diamondPos = x;
       }
-      last = table[lines[k][x][0]][lines[k][x][1]];
+      if (last === "5" && current !== "5") {
+        break;
+      }
+      if(last == current) {
+        wins++;
+
+      }
+      last = current;
     }
 
-    switch (wins) {
-      case 2:
-          lvl = 1;
-          setTimeout(playAudio, 3950, "winLine");
-        break;
-      case 3:
+    if (wins === 2 || diamondPos != -1) {
         lvl = 1;
         setTimeout(playAudio, 3950, "winLine");
-        break;
-      case 4:
-        lvl = 2;
-        setTimeout(playAudio, 3200 + 700 + 0.3 * k * 1000, "alarma");
-        break;
-      case 5:
-        lvl = 2;
-        setTimeout(playAudio, 3200 + 0.3 * k * 1000, "alarma");
-        break;
-      default: 0;
+        
     }
+
+    var pos = diamondPos === -1 ? 0 : diamondPos;
+    console.log("POS", pos);
+    console.log("winTable", winTable[table[lines[k][pos][0]][1]-1][wins-1]);
+    console.log("table", table[lines[k][pos][0]][1]);
     if(lvl > 0) {
-      winnings = winnings + bet * winTable[table[lines[k][wins-1][0]][lines[k][wins-1][1]]][wins-1];
+      winnings = winnings + (bet) / 50 * winTable[table[lines[k][pos][0]][1]-1][wins-1];
       setTimeout(endWithWin, 4400, winnings, 0);
     }
 
-    for(var p = wins - 1; p >= 0; p--) {
-      setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * k * 1000, cords[lines[k][p][0]][lines[k][p][1]], lvl);
+    var finalPos = parseInt(pos) + wins + (diamondPos === -1 ? 1 : 0)
+    for(var p = pos; p < finalPos; p++) {
+      setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * k * 1000, cords[lines[k][p][0]][1], lvl);
     }
   }
   setTimeout(function(){ rolling = 0; }, 4500);
@@ -280,30 +247,26 @@ function spin(timer) {
 
 function pressROLL() {
   if(rolling == 0) {
-    if(canDouble == 0) {
-      if(backCoins / 2 !== coins) {
-        coins = backCoins / 2;
-      }
-      if(backBet / 2 !== bet) {
-        bet = backBet / 2;
-      }
-
-      playAudio("apasaButonul");
-      $('.slot').removeClass('winner1 winner2');
-      if(coins >= bet && coins !== 0) {
-        insertCoin(-bet);
-
-        rolling = 1;
-        var timer = 2;
-        spin(timer);
-      } else if(bet != coins && bet != 50) {
-        setBet(coins);
-      }
-    } else {
-      setTimeout(insertCoin, 200, canDouble);
-      playAudio("collect");
-      looseDouble();
+    $('.info').empty().append("Good luck!");
+    if(backCoins / 2 !== coins) {
+      coins = backCoins / 2;
     }
+    if(backBet / 2 !== bet) {
+      bet = backBet / 2;
+    }
+
+    playAudio("apasaButonul");
+    $('.slot').removeClass('winner1 winner2');
+    if(coins >= bet && coins !== 0) {
+      insertCoin(-bet);
+
+      rolling = 1;
+      var timer = 2;
+      spin(timer);
+    } else if(bet != coins && bet != 50) {
+      setBet(coins);
+    }
+    
   }
 }
 
@@ -313,20 +276,16 @@ function pressAUDIO() {
   $('#sounds').attr('class', shouldPlayAudio ? 'soundsOn' : 'soundsOff');
 }
 
+function pressALL() {
+    setBet(coins);
+}
+
 function pressBLACK() {
-  if(canDouble == 0) {
     setBet(bet - 50);
-  } else {
-    voteColor(canDouble, 1);
-  }
 }
 
 function pressRED() {
-  if(canDouble == 0) {
     setBet(bet + 50);
-  } else {
-    voteColor(canDouble, 0);
-  }
 }
 
 var allFile;
@@ -431,15 +390,11 @@ $(document).ready(function() {
     pressRED();
   })
 
-  $('#betDown').on('click', function(){ // BLACK
-    pressBLACK();
-  }) 
-
   $('#sounds').on('click', function(){ // BLACK
     pressAUDIO();
   }) 
   
-  $('.AllIn').on('click', function(){ // BLACK
+  $('.allIn').on('click', function(){ // BLACK
     pressALL();
   })
 
