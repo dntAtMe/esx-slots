@@ -1,12 +1,7 @@
--- This resource was made by plesalex100#7387
--- Please respect it, don't repost it without my permission
--- This Resource started from: https://codepen.io/AdrianSandu/pen/MyBQYz
--- ESX Version: saNhje & wUNDER
-
 Config = {}
 Config.blipsEnabled = true
 
-Config.MaxBetNumbers = 4 -- 4 makes the max buyin 9999, 5 makes the max buyin 99999 etc.
+Config.MaxBetNumbers = 5
 
 Config.Slots = {
   	{x = 447.90658569336, y = -973.33172607422, z = 30.689601898194},

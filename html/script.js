@@ -1,38 +1,20 @@
-/// Aceasta resursa a fost facuta de plesalex100#7387
-/// Va rog sa o respectati, sa nu o vinde-ti sau postati fara permisiunea mea
-/// Aceasta resursa a pornit de la: https://codepen.io/AdrianSandu/pen/MyBQYz
-// Stiu ca nu se pun 3 slash-uri :)
-
-// Poti sa adaugi sau sa scoti linii aici
-// fiecare linie reprezinta succesiunea de cordonate care formeaza o linie,
-// cordonate care incep de la 0 si se termina la 1
 var lines = [
-  [[0,0], [1,0], [2,0], [3,0], [4,0]],
-  [[0,1], [1,1], [2,1], [3,1], [4,1]],
-  [[0,2], [1,2], [2,2], [3,2], [4,2]],
-
-  [[0,0], [1,1], [2,2], [3,1], [4,0]],
-  [[0,2], [1,1], [2,0], [3,1], [4,2]]
+  [[0,1], [1,1], [2,1]],
 ];
 
-// Poti sa modifici win multiply-urile la fiecare fruct
-// primul 0 nu are nici o importanta
-// fiecare linie reprezinta succesiunea de multiplicari in functie de cate fructe de acelasi timp sunt prinse la rand intr-o linie
-// De exemplu: la Portocale daca prinzi 3 la rand multiply-ul o sa fie x4, daca prini 5 atunci aceasta va fi x40.
 var winTable = [
   [0],
-  [1,1,3,5,10], // Cirese
-  [1,1,4,10,15], // Prune
-  [1,1,4,10,15], // Lamai
-  [1,1,4,10,15], // Portocale
-  [1,1,10,20,50], // Struguri
-  [1,1,10,20,50], // Pepene
-  [1,1,20,150,600] // Septar
+  [1,1,3,5,10],
+  [1,1,4,10,15], 
+  [1,1,4,10,15],
+  [1,1,4,10,15],
+  [1,1,10,20,50],
+  [1,1,10,20,50],
+  [1,1,20,150,600]
 ];
 
-/// De aici in jos aveti grija ce modificati, o face-ti pe riscul vostru
 const SLOTS_PER_REEL = 12;
-const REEL_RADIUS = 209;
+const REEL_RADIUS = 130;
 
 var fructe = ["", "Cirese", "Prune", "Lamai", "Portocale", "Struguri", "Pepene", "Septar"];
 
@@ -48,7 +30,7 @@ var audioIds = [
   "apasaButonul"
 ];
 
-var coins = 0;
+var coins = 1000;
 var bet = 50;
 
 var backCoins = coins * 2;
@@ -97,10 +79,10 @@ function createSlots(ring, id) {
 		var transform = 'rotateX(' + (slotAngle * i) + 'deg) translateZ(' + REEL_RADIUS + 'px)';
 		slot.style.transform = transform;
 
-    var imgID = (seed + i)%7 + 1;
+    var imgID = (seed + i)%4 + 1;
     seed = getSeed();
-    if (imgID == 7) {
-      imgID = (seed + i)%7 + 1;
+    if (imgID == 4) {
+      imgID = (seed + i)%4 + 1;
     }
 
     slot.className = 'slot' + ' fruit' + imgID;
@@ -113,7 +95,7 @@ function createSlots(ring, id) {
 }
 
 function createImage(id) {
-  return '<img src="img/item' + id + '.png" style="border-radius: 20px;" width=100 height=100>';
+  return '<img src="img/item' + id + '.png" style="border-radius: 20px;" width=72 height=50>';
 }
 
 function getSeed() {
@@ -197,7 +179,7 @@ function voteColor(x, color) {
 function spin(timer) {
 	var winnings = 0, backWinnings = 0;
   playAudio("seInvarte");
-	for(var i = 1; i < 6; i ++) {
+	for(var i = 1; i < 4; i ++) {
     var z = 2;
 		var oldSeed = -1;
 
@@ -256,21 +238,19 @@ function spin(timer) {
 
     for(var x = 1 in lines[k]) {
       //|| last == "Septar" || table[lines[k][x][0]][lines[k][x][1]] == "Septar"
+
       if(last == table[lines[k][x][0]][lines[k][x][1]]) {
         wins++;
         //if(table[lines[k][x][0]][lines[k][x][1]] !== "Septar") {
-          last = table[lines[k][x][0]][lines[k][x][1]];
         //}
       }
-      else break;
+      last = table[lines[k][x][0]][lines[k][x][1]];
     }
 
     switch (wins) {
       case 2:
-        if(last == 1) {
           lvl = 1;
           setTimeout(playAudio, 3950, "winLine");
-        }
         break;
       case 3:
         lvl = 1;
@@ -325,21 +305,6 @@ function pressROLL() {
       looseDouble();
     }
   }
-  //else { // SKIP // Putin Buguita ( retul e sters )
-  //  if(canSkip) {
-  //    canSkip = 0;
-  //    setTimeout(function(){ canSkip = 1; }, 4000);
-  //    for(var i = 1; i < 6; i++) {
-  //      var str = $('#ring'+i).css('animation')
-  //      var theSeed = str.substring(str.length - 1, str.length);
-  //      $('#ring'+i).css('animation', 'back-spin .5s, spin-' + theSeed + ' ' + '1s');
-  //    }
-  //    for(var i = 0; i < winCords.length; i++) {
-  //      setTimeout(setWinner, 1000 + (0.25 * i) * 1000, winCords[i][0], winCords[i][1])
-  //    }
-  //    setTimeout(function(){ rolling = 0; }, 2000);
-  //  }
-  //}
 }
 
 function pressAUDIO() {
@@ -369,9 +334,7 @@ var allFile;
 function resetRings() {
   var rng1 = $("#ring1"),
       rng2 = $("#ring2"),
-      rng3 = $("#ring3"),
-      rng4 = $("#ring4"),
-      rng5 = $("#ring5");
+      rng3 = $("#ring3")
 
   rng1.empty()
     .removeClass()
@@ -391,23 +354,9 @@ function resetRings() {
     .removeAttr('id')
     .attr('id', 'ring3');
 
-  rng4.empty()
-    .removeClass()
-    .addClass("ring")
-    .removeAttr('id')
-    .attr('id', 'ring4');
-
-  rng5.empty()
-    .removeClass()
-    .addClass("ring")
-    .removeAttr('id')
-    .attr('id', 'ring5');
-
   createSlots($('#ring1'), 1);
   createSlots($('#ring2'), 2);
   createSlots($('#ring3'), 3);
-  createSlots($('#ring4'), 4);
-  createSlots($('#ring5'), 5);
 }
 
 function togglePacanele(start, banuti) {
@@ -437,20 +386,11 @@ window.addEventListener('message', function(event) {
   }
 });
 
-/// sa stii ca tot a fost facut cu pasiune si dragoste de plesalex100#7387
-/// scriu asta aici pentru ca stiu ca doar cei carora le pasa ce
-/// dreq s-a intamplat aici vor citii ceva. Timp total de munca: ~15 ore
-/// De la ce am pornit: https://codepen.io/AdrianSandu/pen/MyBQYz
-/// Everything it's possible !
-
 $(document).ready(function() {
 	allFile = $("#stage");
-  allFile.css("display", "none");
   createSlots($('#ring1'), 1);
  	createSlots($('#ring2'), 2);
  	createSlots($('#ring3'), 3);
- 	createSlots($('#ring4'), 4);
- 	createSlots($('#ring5'), 5);
   for(var i = 0; i < audioIds.length; i++) {
     audios[i] = document.createElement('audio');
     audios[i].setAttribute('src', 'audio/' + audioIds[i] + '.wav');
@@ -460,7 +400,6 @@ $(document).ready(function() {
     }
   }
   
-  //$('.win').hide();
   $('.dblOrNothing').hide();
 
   $('.ownedCoins').empty().append(coins);

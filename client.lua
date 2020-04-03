@@ -1,9 +1,3 @@
--- This resource was made by plesalex100#7387
--- Please respect it, don't repost it without my permission
--- This Resource started from: https://codepen.io/AdrianSandu/pen/MyBQYz
--- ESX Version: saNhje & wUNDER
-
-
 ESX                             = nil
 local PlayerData                = {}
 local open 						= false
@@ -121,119 +115,12 @@ Citizen.CreateThread(function ()
 				x = i
 				wTime = 0
 				langaAparat = true
-				ESX.ShowHelpNotification('Press ~INPUT_PICKUP~ to test your luck at slot machine')
+				ESX.ShowHelpNotification('Press ~INPUT_PICKUP~ to test your luck')
 			elseif GetDistanceBetweenCoords(GetEntityCoords(GetPlayerPed(-1)), Config.Slots[x].x, Config.Slots[x].y, Config.Slots[x].z, true) > 4 then
 				wTime = 500
 			end
 		end
 	end
-end)
-
-effects = {
-"SwitchHUDIn",
-"SwitchHUDOut",
-"FocusIn",
-"FocusOut",
-"MinigameEndNeutral",
-"MinigameEndTrevor",
-"MinigameEndFranklin",
-"MinigameEndMichael",
-"MinigameTransitionOut",
-"MinigameTransitionIn",
-"SwitchShortNeutralIn",
-"SwitchShortFranklinIn",
-"SwitchShortTrevorIn",
-"SwitchShortMichaelIn",
-"SwitchOpenMichaelIn",
-"SwitchOpenFranklinIn",
-"SwitchOpenTrevorIn",
-"SwitchHUDMichaelOut",
-"SwitchHUDFranklinOut",
-"SwitchHUDTrevorOut",
-"SwitchShortFranklinMid",
-"SwitchShortMichaelMid",
-"SwitchShortTrevorMid",
-"DeathFailOut",
-"CamPushInNeutral",
-"CamPushInFranklin",
-"CamPushInMichael",
-"CamPushInTrevor",
-"SwitchOpenMichaelIn",
-"SwitchSceneFranklin",
-"SwitchSceneTrevor",
-"SwitchSceneMichael",
-"SwitchSceneNeutral",
-"MP_Celeb_Win",
-"MP_Celeb_Win_Out",
-"MP_Celeb_Lose",
-"MP_Celeb_Lose_Out",
-"DeathFailNeutralIn",
-"DeathFailMPDark",
-"DeathFailMPIn",
-"MP_Celeb_Preload_Fade",
-"PeyoteEndOut",
-"PeyoteEndIn",
-"PeyoteIn",
-"PeyoteOut",
-"MP_race_crash",
-"SuccessFranklin",
-"SuccessTrevor",
-"SuccessMichael",
-"DrugsMichaelAliensFightIn",
-"DrugsMichaelAliensFight",
-"DrugsMichaelAliensFightOut",
-"DrugsTrevorClownsFightIn",
-"DrugsTrevorClownsFight",
-"DrugsTrevorClownsFightOut",
-"HeistCelebPass",
-"HeistCelebPassBW",
-"HeistCelebEnd",
-"HeistCelebToast",
-"MenuMGHeistIn",
-"MenuMGTournamentIn",
-"MenuMGSelectionIn",
-"ChopVision",
-"DMT_flight_intro",
-"DMT_flight",
-"DrugsDrivingIn",
-"DrugsDrivingOut",
-"SwitchOpenNeutralFIB5",
-"HeistLocate",
-"MP_job_load",
-"RaceTurbo",
-"MP_intro_logo",
-"HeistTripSkipFade",
-"MenuMGHeistOut",
-"MP_corona_switch",
-"MenuMGSelectionTint",
-"SuccessNeutral",
-"ExplosionJosh3",
-"SniperOverlay",
-"RampageOut",
-"Rampage",
-"Dont_tazeme_bro",
-"DeathFailOut"
-}
-
-Citizen.CreateThread(function () 
-	while true do
-		if IsScreenblurFadeRunning() then
-			print("yes")
-		end
-		for cnt = 1, #effects do
-			isPlayed = AnimpostfxIsRunning(effects[cnt])
-			if isPlayed then
-				print(effects[cnt], ' ', isPlayed)
-				StatSetProfileSettingValue(226, -1)
-
-			end
-		end
-		Citizen.Wait(0)
-	end
-end)
-
-RegisterCommand("player", function(source, args)
-	GiveWeaponToPed(GetPlayerPed(-1), GetHashKey('weapon_pistol'), 999, false, false)
 end)
 
 Citizen.CreateThread(function ()

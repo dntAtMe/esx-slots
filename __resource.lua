@@ -25,8 +25,6 @@ files {
   'html/img/item6.png',
   'html/img/item7.png',
   'html/img/red.png',
-  'html/img/leone.png',
-  'html/img/metal.jpg',
   -- Audio
   'html/audio/alarma.wav',
   'html/audio/apasaButonul.wav',

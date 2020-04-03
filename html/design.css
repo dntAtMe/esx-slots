@@ -2,192 +2,48 @@ body {
   margin: 0;
   padding: 0;
   font-family: Impact, Charcoal, sans-serif;
+  
 }
 
 #stage {
-  margin: 0 auto;
-  width: 710px;
-  padding: 0 0 40px;
-  background: transparent;
+position: absolute;
 }
 
 .header {
-  height:60px;
-  width: inherit;
-  background: linear-gradient(360deg, rgb(124, 68, 68) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
-
+  position: relative;
+  margin: 0 auto;
+  width: 781px;
+  background: transparent;
+  background-image: url("img/all.png");
+  height: 690px;
+  z-index: 100;
 }
-
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    'msg msg msg msg msg start'
-    'info_coins info_coins info_bet info_bet sounds start'
-    'amount_coins amount_coins amount_bet amount_bet increase_bet all_in'
-    'history history history history history history';
-  grid-gap: 10px;
-  background-color: #2196F3;
-  padding: 10px;
-  background: rgb(255,9,9);
-  background: linear-gradient(180deg, rgb(124, 68, 68) 0%, rgba(255,50,0,1) 47%, rgba(255,78,0,1) 100%);  font-size: 20px;
-  -webkit-box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
-  -moz-box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
-  box-shadow: inset 0px 30px 42px 0px rgba(0,0,0,0.45);
-  width: 690px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
-
-.betButtonDiv {
-  grid-area: increase_bet;
-}
-
-.allButtonDiv {
-  grid-area: all_in;
-}
-
-.goButtonDiv {
-  grid-area: start;
-}
-
-.ownedCoins {
-  grid-area: amount_coins;
-}
-
-.ownedCoins2 {
-  grid-area: info_coins;
-  font-size: 12px;
-
-}
-
-.ownedBet2 {
-  grid-area: info_bet;
-  font-size: 12px;
-}
-
-#ownedCoins {
-  color: #fff;
-  text-shadow: 1px 1px 1px black;
-  font-weight: 100;
-  font-size: 24px;
-}
-
-.ownedBet, .ownedCoins, .ownedCoins2, .ownedBet2, .win, .cHistory {
-  text-align: right;
-  background: linear-gradient(180deg, rgba(89,89,89,1) 0%, rgba(60,60,60,1) 50%, rgba(82,82,82,1) 100%);
-  border-radius: 4px;
-  color: gold;
-  border: 2px solid #414141;
-  -webkit-box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.75);
-  -moz-box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.75);
-  box-shadow: inset 0px 0px 9px 3px rgba(0,0,0,0.75);
-}
-
-.ownedCoins2, .ownedBet2, .win {
-  text-align: center;
-}
-
-.ownedCoins2, .ownedBet2 {
-  color: #dddddd;
-}
-
-.sounds {
-  grid-area: sounds;
-}
-
-.ownedBet {
-  grid-area: amount_bet;
-
-}
-
-.cHistory li {
-  display: inline;
-  margin-left: 10px;
-}
-
-.cHistory {
-  grid-area: history;
-  margin: 0;
-
-  color: #eee;
-  padding-top:5px;
-  margin-top: 5px;
-  width: 650px;
-  height: 40px;
-  text-align: left;
-}
-
-.win {
-  grid-area: msg;
-  text-shadow: 1px 1px 1px black;
-  z-index: 12;
-  border-radius: 4px;
-  text-align: center;
-  
-  font-size: 24px;
-  color: #fffb19;
-  font-weight: 10;
-}
-
 #rotate-outer {
-  margin: 0 auto 0;
-  width: 710px;
-  height: 418px;
-  background-color: black;
-  /*border-radius: 15px;
-  /* Ensure that we're in 3D space */
-  transform-style: preserve-3d;
-  background: rgb(111,0,71);
-  background: linear-gradient(180deg, rgba(111,0,71,1) 0%, rgba(184,0,102,1) 47%, rgba(131,0,73,1) 95%);
-  -moz-box-shadow:    inset 0 0 10px #000000;
-  -webkit-box-shadow: inset 0 0 10px #000000;
-  box-shadow:         inset 0 0 10px #000000;
+
 }
 
 #rotate {
-  margin: 0 auto 0;
-  width: 630px;
-  padding-top: 150px;
-  height: 260px;
-  padding-top: 150px;
-  /*border-radius: 15px;
-  /* Ensure that we're in 3D space */
-  transform-style: preserve-3d;
-
-}
-
-.comenzi {
-
+  position: relative;
+  bottom: 345px;
+  left: 205px;
 }
 
 .ring {
+  position: relative;
   margin: 0 auto;
-  height: 112px;
-  width: 126px;
+  height: 70px;
+  width: 146px;
   float: left;
   transform-style: preserve-3d;
 
 }
 .slot {
   position: absolute;
-  width: 126px;
-  height: 112px;
+  width: 72px;
+  height: 70px;
   box-sizing: border-box;
   opacity: 0.9;
   color: rgba(0,0,0,0.9);
-  background: #1d1d1d;
-  border-left: solid 2px #000;
-  border-right: solid 2px #000;
-  border-width: 2px;
-  border-style: solid;
-  border-image: 
-    linear-gradient(
-      to bottom, 
-      rgb(109, 82, 99), 
-      rgba(189, 189, 189, 0.8),
-      rgb(109, 82, 99)
-    ) 1 100%;
   -webkit-backface-visibility: hidden;
      -moz-backface-visibility: hidden;
           backface-visibility: hidden;
@@ -202,197 +58,11 @@ body {
 .slot p {
   font-size: 36px;
   font-weight: bold;
-  line-height: 112px;
+  line-height: 50px;
   margin: 0;
   text-align: center;
 }
 
-.betUp:hover {
-  background: rgb(255,244,122);
-  background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgba(104,189,5,1) 52%, rgba(48,251,44,1) 84%);  border: none;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-}
-
-.betUp {
-  text-shadow: 1px 1px 1px black;
-  border: none;
-  color: black;
-  padding: 2px 8px;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
-  transition: .2s all;
-}
-
-.soundsOn:hover {
-    background: rgb(255,244,122);
-    background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgba(104,189,5,1) 52%, rgba(48,251,44,1) 84%);  border: none;
-    border: 2px solid #C0C0C0;
-    -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-    -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-    box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-}
-
-.soundsOn {
-  text-shadow: 1px 1px 1px black;
-  border: none;
-  color: black;
-  padding: 2px 8px;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
-  transition: .2s all;
-}
-
-.soundsOff:hover {
-  background: rgb(255,244,122);
-  background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgb(189, 5, 5) 52%, rgb(251, 58, 44) 84%);  border: none;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-}
-
-.soundsOff {
-  text-shadow: 1px 1px 1px black;
-  border: none;
-  color: black;
-  padding: 2px 8px;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgb(184, 0, 0) 56%, rgb(244, 0, 0) 95%);  transition: .2s all;
-  transition: .2s all;
-}
-
-.betBlack:hover {
-  background: rgb(226,226,226);
-background: linear-gradient(180deg, rgba(226,226,226,1) 0%, rgba(175,175,175,1) 52%, rgba(101,101,101,1) 84%);
-}
-
-.betBlack {
-  text-shadow: 1px 1px 1px black;
-  border: none;
-  color: white;
-  background: rgb(185,185,185);
-background: linear-gradient(180deg, rgba(185,185,185,1) 0%, rgba(133,133,133,1) 52%, rgba(59,59,59,1) 84%);
-  padding: 2px 8px;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 2px solid #C0C0C0;
-  transition: .2s all;
-  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-}
-
-.betRed:hover {
-  background: linear-gradient(180deg, rgba(255,151,151,1) 0%, rgba(230,53,53,1) 52%, rgba(193,27,27,1) 84%);
-
-}
-
-.betRed {
-  text-shadow: 1px 1px 1px black;
-  border: none;
-  color: white;
-  background: linear-gradient(180deg, rgba(255,72,72,1) 0%, rgba(208,23,23,1) 52%, rgba(148,7,7,1) 84%);
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 2px solid #C0C0C0;
-  transition: .2s all;
-  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  
-}
-
-.AllIn:hover {
-  background: #2F404E;
-}
-
-.AllIn {
-  text-shadow: 1px 1px 1px black;
-  width:90%;
-  height:90%;
-  color: black;
-  padding: 6px 13px;
-  text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: 4px;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
-  transition: .2s all;
-}
-
-.go:hover {
-  background: rgb(255,244,122);
-  background: linear-gradient(180deg, rgba(255,244,122,1) 0%, rgba(104,189,5,1) 52%, rgba(48,251,44,1) 84%);  border: none;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  -moz-box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  box-shadow: inset 0px 0px 3px 4px rgba(0,0,0,0.66);
-  color: black;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  margin: 4px 2px;
-}
-
-.go {
-  text-shadow: 1px 1px 1px black;
-  border-radius: 4px;
-  height: 90%;
-  border: 2px solid #C0C0C0;
-  -webkit-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  -moz-box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  box-shadow: inset 0px 0px 5px 5px rgba(0,0,0,0.68);
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(0,184,57,1) 56%, rgba(0,244,8,1) 95%);  transition: .2s all;
-
-  color: black;
-  padding: 5px;
-  padding-right: 30px;
-  padding-left: 30px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
 label {
   cursor: pointer;
   display: inline-block;
