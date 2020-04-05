@@ -24,6 +24,7 @@ function newVals() {
   for (var i = 1; i <= 7; i++) {
     chancesTable[i-1] = parseInt(document.getElementById('p' + i).value)
   }
+  togglePacanele(true, 1000)
 }
 
 function updateVals() {
@@ -45,12 +46,6 @@ function calcChance(rolled) {
   }
   return -1;
 }
-
-
-
-
-
-
 
 var winTable = [
   [0,0,5],
@@ -194,8 +189,12 @@ function looseDouble() {
   canDouble = 0;
   dubleDate = 0;
 }
-
+let i = 0;
 function spin(timer) {
+  if (++i % 10 === 0 ) {
+    i = 0;
+    togglePacanele(true, coins)
+  }
   for (var i = 1; i <= 7; i++) {
     $('#won' + i).empty().append(won[i-1]);
   }
@@ -348,7 +347,6 @@ function resetRings() {
   var rng1 = $("#ring1"),
       rng2 = $("#ring2"),
       rng3 = $("#ring3")
-      rng3 = $("#ring4")
 
   rng1.empty() 
     .removeClass()
@@ -367,12 +365,6 @@ function resetRings() {
     .addClass("ring")
     .removeAttr('id')
     .attr('id', 'ring3');
-
-    rng4.empty()
-    .removeClass()
-    .addClass("ring")
-    .removeAttr('id')
-    .attr('id', 'ring4');
 
   createSlots($('#ring1'), 1);
   createSlots($('#ring2'), 2);
@@ -417,7 +409,6 @@ $(document).ready(function() {
   createSlots($('#ring1'), 1);
  	createSlots($('#ring2'), 2);
  	createSlots($('#ring3'), 3);
-   createSlots($('#ring4'), 4);
    if (is5) {
     createSlots($('#ring5'), 5);
     createSlots($('#ring6'), 6);
