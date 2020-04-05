@@ -2,6 +2,8 @@ var lines = [
   [[0,1], [1,1], [2,1]],
 ];
 
+var won = [0, 0, 0, 0, 0, 0, 0]
+
 var lines5 = [
   [[0,0], [1,0], [2,0], [3,0], [4,0]],
   [[0,1], [1,1], [2,1], [3,1], [4,1]],
@@ -188,6 +190,7 @@ function looseDouble() {
 }
 
 function spin(timer) {
+  $('#won').empty().append(won.toString());
 	var winnings = 0, backWinnings = 0;
   playAudio("seInvarte");
 	for(var i = 1; i < 4; i ++) {
@@ -267,6 +270,7 @@ function spin(timer) {
     }
 
     if (wins === 2 || diamondPos != -1) {
+        won[last-1]++;
         lvl = 1;
         setTimeout(playAudio, 3950, "winLine");
         
