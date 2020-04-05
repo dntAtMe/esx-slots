@@ -14,6 +14,26 @@ var chancesTable = [
   3,3,1,2,2,2,2
 ]
 
+function newVals() {
+  for (var i = 1; i <= 7; i++) {
+    winTable[i-1] = document.getElementById('val' + i).value.split(',')
+  }
+  
+  for (var i = 1; i <= 7; i++) {
+    chancesTable[i-1] = document.getElementById('p' + i).value
+  }
+}
+
+function updateVals() {
+  for (var i = 1; i <= 7; i++) {
+    document.getElementById('val' + i).value = winTable[i-1].toString()
+  }
+  
+  for (var i = 1; i <= 7; i++) {
+    document.getElementById('p' + i).value = chancesTable[i-1].toString()
+  }
+}
+
 function calcChance(rolled) {
   for (var i = 0; i < chancesTable.length; i++) {
     rolled -= chancesTable[i];
@@ -379,6 +399,7 @@ var is5 = false;
 $(document).ready(function() {
   is5 = false;
   shouldPlayAudio = false;
+  updateVals()
 	allFile = $("#stage");
   createSlots($('#ring1'), 1);
  	createSlots($('#ring2'), 2);
@@ -440,5 +461,9 @@ $(document).ready(function() {
 
  	$('.go').on('click',function(){ // COLLECT
     pressROLL();
- 	})
+   })
+   
+   $('#update').on('click', function() {
+     newVals();
+   })
  });
