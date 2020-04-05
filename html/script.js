@@ -369,7 +369,6 @@ function resetRings() {
   createSlots($('#ring1'), 1);
   createSlots($('#ring2'), 2);
   createSlots($('#ring3'), 3);
-  createSlots($('#ring4'), 4);
 }
 
 function togglePacanele(start, banuti) {
@@ -408,7 +407,9 @@ $(document).ready(function() {
 	allFile = $("#stage");
   createSlots($('#ring1'), 1);
  	createSlots($('#ring2'), 2);
- 	createSlots($('#ring3'), 3);
+  createSlots($('#ring3'), 3);
+  createSlots($('#ring4'), 4);
+
    if (is5) {
     createSlots($('#ring5'), 5);
     createSlots($('#ring6'), 6);
