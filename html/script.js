@@ -22,7 +22,7 @@ function newVals() {
   }
   
   for (var i = 1; i <= 7; i++) {
-    chancesTable[i-1] = document.getElementById('p' + i).value
+    chancesTable[i-1] = parseInt(document.getElementById('p' + i).value)
   }
 }
 
@@ -190,8 +190,10 @@ function looseDouble() {
 }
 
 function spin(timer) {
-  $('#won').empty().append(won.toString());
-	var winnings = 0, backWinnings = 0;
+  for (var i = 1; i <= 7; i++) {
+    $('#won' + i).empty().append(won[i-1]);
+  }
+  var winnings = 0, backWinnings = 0;
   playAudio("seInvarte");
 	for(var i = 1; i < 4; i ++) {
     var z = 2;
@@ -400,6 +402,7 @@ window.addEventListener('message', function(event) {
 });
 
 var is5 = false;
+
 $(document).ready(function() {
   is5 = false;
   shouldPlayAudio = false;
