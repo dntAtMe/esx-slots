@@ -2,8 +2,16 @@ var lines = [
   [[0,1], [1,1], [2,1]],
 ];
 
+var lines5 = [
+  [[0,0], [1,0], [2,0], [3,0], [4,0]],
+  [[0,1], [1,1], [2,1], [3,1], [4,1]],
+  [[0,2], [1,2], [2,2], [3,2], [4,2]],
+  [[0,0], [1,1], [2,2], [3,1], [4,0]],
+  [[0,2], [1,1], [2,0], [3,1], [4,2]],
+]
+
 var chancesTable = [
-  3,3,1,2,1,2,2
+  3,3,1,2,2,2,2
 ]
 
 function calcChance(rolled) {
@@ -21,13 +29,13 @@ var winTable = [
   [0, 0, 250], 
   [0, 0, 1000],
   [0, 0, 500],
-  [1, 5, 25],
+  [1, 10, 50],
   [0, 0, 375],
   [0, 0, 750]
 ];
 
-const SLOTS_PER_REEL = 12;
-const REEL_RADIUS = 130;
+const SLOTS_PER_REEL = 30;
+const REEL_RADIUS = 300;
 
 var fructe = ["", "Cirese", "Prune", "Lamai", "Portocale", "Struguri", "Pepene", "Septar"];
 
@@ -99,7 +107,7 @@ function createSlots(ring, id) {
     imgID = calcChance(imgID) + 1;
     console.log("imgID", imgID);
 
-    slot.className = 'slot' + ' fruit' + imgID;
+    slot.className = (is5 ? 'slot5' : 'slot') + ' fruit' + imgID;
     slot.id = id + 'id' + i;
 		var content = $(slot).empty().append('<p>' + createImage(imgID) + '</p>');
 
@@ -109,7 +117,8 @@ function createSlots(ring, id) {
 }
 
 function createImage(id) {
-  return '<img src="img/item' + id + '.png" style="border-radius: 20px;" width=72 height=50>';
+  var size = (is5 ? 'width=52 height=40' : 'width=72 height=50');
+  return '<img src="img/item' + id + '.png" style="border-radius: 20px;" ' + size + '>';
 }
 
 function getSeed() {
@@ -150,6 +159,7 @@ function endWithWin(x, sound) {
     playAudio("collect");
     looseDouble();
   }
+
 }
 
 function looseDouble() {
@@ -174,14 +184,16 @@ function spin(timer) {
 		}
 
     var pSeed = seed
-    for(var j = 1; j <= 5; j++) {
+    for(var j = 1; j <= 12; j++) {
       console.log("j", j)
       pSeed += 1;
-      if(pSeed == 12) {
+      if(pSeed == 30) {
         pSeed = 0;
       }
-      if(j>=3) {
+      if(j>=9) {
         var msg = $('#' + i + 'id' + pSeed).attr('class');
+        console.log(msg)
+        console.log('#' + i + 'id' + pSeed)
         switch(i) {
           case 1:
             tbl1[z] = reverseStr(msg)[0];
@@ -201,19 +213,23 @@ function spin(timer) {
     }
 
 		$('#ring'+i)
-			.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.5) + 's')
+			.css('animation','back-spin 0s, spin-' + seed + ' ' + (timer - timer + i*0.0) + 's')
 			.attr('class','ring spin-' + seed);
 	}
-  var table = [tbl1,tbl2,tbl3, ];
+  var table = [tbl1,tbl2,tbl3];
   var cords = [crd1,crd2,crd3];
 
   for(var k in lines) {
     var wins = 0, last = "-1", lvl = 0, lasx;
     var diamondPos = -1;
 
-    for(var x = 0 in lines[k]) {
+    for(var x in lines[k]) {
+      console.log(table)
+      console.log(cords)
       var current = table[lines[k][x][0]][lines[k][x][1]]
+      var currentCoords = cords[lines[k][x][0]][lines[k][x][1]]
       console.log("current", current);
+      console.log("current", currentCoords);
       console.log("last", last);
       console.log("wins", wins);
       if (current === "5" && diamondPos === -1) {
@@ -240,15 +256,15 @@ function spin(timer) {
     wins = diamondPos === -1 ? wins : wins - 1;
     if(lvl > 0) {
       winnings = winnings + bet * winTable[table[lines[k][pos][0]][1]-1][wins];
-      setTimeout(endWithWin, 4400, winnings, 0);
+      setTimeout(endWithWin, 0, winnings, 0);
     }
 
     var finalPos = parseInt(pos) + wins + 1
     for(var p = pos; p < finalPos; p++) {
-      setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * 1000, cords[p][1], lvl);
+      setTimeout(setWinner, 0, cords[p][1], lvl);
     }
   }
-  setTimeout(function(){ rolling = 0; }, 4500);
+  setTimeout(function(){ rolling = 0; pressROLL();}, 0);
 }
 
 function pressROLL() {
@@ -359,12 +375,19 @@ window.addEventListener('message', function(event) {
   }
 });
 
+var is5 = false;
 $(document).ready(function() {
+  is5 = false;
+  shouldPlayAudio = false;
 	allFile = $("#stage");
   createSlots($('#ring1'), 1);
  	createSlots($('#ring2'), 2);
  	createSlots($('#ring3'), 3);
- 	createSlots($('#ring4'), 4);
+   createSlots($('#ring4'), 4);
+   if (is5) {
+    createSlots($('#ring5'), 5);
+    createSlots($('#ring6'), 6);
+  }
   for(var i = 0; i < audioIds.length; i++) {
     audios[i] = document.createElement('audio');
     audios[i].setAttribute('src', 'audio/' + audioIds[i] + '.wav');
