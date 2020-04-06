@@ -19,6 +19,16 @@ position: absolute;
   z-index: 2;
 }
 
+.header-big {
+  position: relative;
+  margin: 0 auto;
+  width: 781px;
+  background: transparent;
+  background-image: url("img/all-big.png");
+  height: 690px;
+  z-index: 2;
+}
+
 .bet {
   position: relative;
   bottom: 218px;
@@ -99,8 +109,18 @@ position: absolute;
   width: 146px;
   float: left;
   transform-style: preserve-3d;
+}
+
+.ring-big {
+  position: relative;
+  margin: 0 auto;
+  height: 70px;
+  width: 82px;
+  float: left;
+  transform-style: preserve-3d;
 
 }
+
 .slot {
   position: absolute;
   width: 130px;
@@ -114,6 +134,28 @@ position: absolute;
      -moz-backface-visibility: hidden;
           backface-visibility: hidden;
 }
+
+.slot-big {
+  position: absolute;
+  width: 76px;
+  height: 70px;
+  box-sizing: border-box;
+
+  opacity: 0.9;
+  color: rgba(0,0,0,0.9);
+  -webkit-backface-visibility: hidden;
+     -moz-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.slot-big p {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 60px;
+  margin: 0;
+  text-align: center;
+}
+
 
 .backface-on {
   -webkit-backface-visibility: visible;
@@ -223,49 +265,5 @@ label {
     0%    { transform: rotateX(30deg); }
     100%  { transform: rotateX(-4049deg); }
 }
-
-input[type=checkbox] + label {
-  display: block;
-  margin: 0.2em;
-  cursor: pointer;
-  padding: 0.2em;
-  color: #fff;
-  font-size: 18px;
-}
-input[type=checkbox] {
-  display: none;
-}
-input[type=checkbox] + label:before {
-  content: "\2714";
-  border: 0.1em solid #000;
-  border-radius: 0.2em;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  padding-left: 0.2em;
-  padding-bottom: 0.3em;
-  margin-right: 0.2em;
-  vertical-align: bottom;
-  color: transparent;
-  transition: .2s;
-}
-input[type=checkbox] + label:active:before {
-  transform: scale(0);
-}
-input[type=checkbox]:checked + label:before {
-  background-color: MediumSeaGreen;
-  border-color: MediumSeaGreen;
-  color: #fff;
-}
-input[type=checkbox]:disabled + label:before {
-  transform: scale(1);
-  border-color: #aaa;
-}
-input[type=checkbox]:checked:disabled + label:before {
-  transform: scale(1);
-  background-color: #bfb;
-  border-color: #bfb;
-}
-
 
 
