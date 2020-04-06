@@ -299,68 +299,45 @@ function spin(timer) {
   var totalSum = 0;
     
   for(var k in lines) {
-    var wins = 0, last = "-1", lvl = 0, lasx;
-    var hitsInRow = [0, 0, 0, 0, 0, 0, 0];
+    var wins = 0, last = table[lines[k][0][0]][lines[k][0][1]], lvl = 0, lasx;
+    var hitAmount= 0, hitNumber = parseInt(last);
     var hitPositions = [];
-    var didHitLast = false;
-    for(var x = 0 in lines[k]) {
+    for(var x = 1; x < lines[k].length; x++) {
       var current = table[lines[k][x][0]][lines[k][x][1]]
       console.log("current", current);
+      console.log("last", last);
       
-      if(last == current) {
-        won[current - 1]++;
-        hitsInRow[current - 1]++;
-        if (winTable[current - 1][hitsInRow[current - 1]])
-          didHitLast = true;
-          hitPositions.push(x-1);
-          if (hitsInRow[current-1]== 2) {
-            hitPositions.push(x-2);
-          }
-      } else if (hitsInRow[current-1] == 1) {
-        hitsInRow[current-1] += cols;
-        if (didHitLast) {
-          hitPositions.push(x-1);
-          didHitLast = false;
-        }
+      if(last === current) {
+        hitAmount++;
       } else {
-        if (didHitLast) {
-          hitPositions.push(x-1);
-          didHitLast = false;
-        }
+        break;
       }
       last = current;
     }
-    
-    if (didHitLast) {
-      hitPositions.push(cols-1);
-      didHitLast = false;
+    console.log("hA", hitAmount);
+    console.log("hN", hitNumber);
+    console.log("WON ", winTable[hitNumber-1][hitAmount])
+    var doesCount = false;
+    if (winTable[hitNumber-1][hitAmount]) {
+      won[hitNumber - 1]++;
+      doesCount = true;
+      totalSum += parseInt(winTable[hitNumber-1][hitAmount]);
     }
-
-    console.log(hitsInRow)
-    console.log(hitPositions)
-    for (var c = 0; c < 7; c++) {
-      if (hitsInRow[c] > cols) {
-        var newVal = parseInt(hitsInRow[c] - cols);
-        totalSum += parseInt(newVal * winTable[c][1]);
-      } else if (hitsInRow[c]) {
-        totalSum += parseInt((hitsInRow[c] ? winTable[c][hitsInRow[c]] : 0));
-      }
       
-    }
 
-    if (totalSum) {
+
+    if (doesCount) {
       console.log('SUM', totalSum)
         lvl = 1;
         setTimeout(playAudio, 3950, "winLine");
     }
 
     if(lvl > 0) {    
-      for(var p in hitPositions) {
-        var currentPos = hitPositions[p];
-        console.log('pos', currentPos,k,cords[lines[k][currentPos][0]][lines[k][currentPos][1]])
+      for(var p = 0; p <= hitAmount; p++) {
+        console.log('pos', p,k,cords[lines[k][p][0]][lines[k][p][1]])
         console.log('pos', cords)
         console.log('pos', hitPositions)
-        setTimeout(setWinner, 0, cords[lines[k][currentPos][0]][lines[k][currentPos][1]], lvl);
+        setTimeout(setWinner, 0, cords[lines[k][p][0]][lines[k][p][1]], lvl);
       }
     }
 
