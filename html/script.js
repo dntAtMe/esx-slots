@@ -345,10 +345,10 @@ function spin(timer) {
 
   }
   if (totalSum > 0) {
-    setTimeout(endWithWin, 2400 + settings.blockTimer * settings.cols, totalSum, 0);
+    setTimeout(endWithWin, (2400 + settings.blockTimer * settings.cols ) * (shouldAutomate ? 0 : 1), totalSum, 0);
   }
 
-  setTimeout(function(){ if (shouldAutomate) pressROLL(); else rolling = 0; }, 2500 * (shouldAutomate ? 0 : 1) + settings.blockTimer * settings.cols * (shouldAutomate ? 0 : 1) + (shouldAutomate ? 10 : 0));
+  setTimeout(function(){ if (shouldAutomate) pressROLL(); else rolling = 0; }, 2500 * (shouldAutomate ? 0 : 1) + settings.blockTimer * settings.cols * (shouldAutomate ? 0 : 1));
 }
 
 function pressROLL() {
