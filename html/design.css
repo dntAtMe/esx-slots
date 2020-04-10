@@ -6,14 +6,17 @@ body {
 }
 
 #stage {
-position: absolute;
+  position: absolute;
+}
+
+.buttonsDiv {
+  margin-left: 80px;
 }
 
 .header {
   position: relative;
   margin: 0 auto;
   width: 781px;
-  background: transparent;
   background-image: url("img/all.png");
   height: 690px;
   z-index: 2;
@@ -69,18 +72,24 @@ position: absolute;
   position: relative;
   width: 80px;
   height: 40px;
-  opacity: 0%;
+  right: 40px;
+  opacity: 50%;
   bottom: 51px;
   z-index: 101;
+}
+
+.move {
+  position: relative;
+  margin-left:30px;
 }
 
 .betUp {
   position: relative;
   height: 40px;
   width: 40px;
-  opacity: 0%;
+  opacity: 50%;
   float: left;
-  bottom: 92px;
+  bottom: 52px;
   right: 330px;
   z-index: 3;
 }
@@ -89,15 +98,16 @@ position: absolute;
   position: relative;
   height: 40px;
   width: 40px;
-  opacity: 00%;
+  opacity: 50%;
   float: left;
   right: 286px;
-  bottom: 92px;
+  bottom: 52px;
   z-index: 3;
 }
 
 #rotate {
   position: relative;
+
   bottom: 355px;
   left: 175px;
 }
@@ -111,6 +121,8 @@ position: absolute;
   transform-style: preserve-3d;
 }
 
+
+
 .ring-big {
   position: relative;
   margin: 0 auto;
@@ -119,6 +131,7 @@ position: absolute;
   float: left;
   transform-style: preserve-3d;
 
+
 }
 
 .slot {
@@ -126,9 +139,8 @@ position: absolute;
   width: 130px;
   height: 70px;
   box-sizing: border-box;
-  background-color: #fff9d7;
-  
   opacity: 0.9;
+  
   color: rgba(0,0,0,0.9);
   -webkit-backface-visibility: hidden;
      -moz-backface-visibility: hidden;
@@ -154,6 +166,7 @@ position: absolute;
   line-height: 60px;
   margin: 0;
   text-align: center;
+
 }
 
 

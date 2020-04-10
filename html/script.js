@@ -1,104 +1,94 @@
-var isBig = true;
-
-var rows, cols;
-
-var lines;
-var chancesTable;
-var winTable;
-
-var ringClass;
-var slotClass;
-var slotStyle;
-
-if (isBig) {
-  rows = 3;
-  cols = 5;
-
-  lines = [
-    [[0,0], [1,0], [2,0], [3,0], [4,0]],
-    [[0,1], [1,1], [2,1], [3,1], [4,1]],
-    [[0,2], [1,2], [2,2], [3,2], [4,2]],
-    [[0,0], [1,1], [2,2], [3,1], [4,0]],
-    [[0,2], [1,1], [2,0], [3,1], [4,2]],
-  ];  
-
-  chancesTable = [
-    3,3,1,2,1,2,2
-  ]
-
-  winTable = [
-    [0, 0, 3, 4, 5],
-    [0, 0, 3, 4, 5],
-    [0, 0, 3, 4, 5],
-    [0, 0, 3, 4, 5],
-    [0, 2, 3, 4, 5],
-    [0, 0, 3, 4, 5],
-    [0, 0, 3, 4, 5],
-  ];
-    
-  ringClass = 'ring-big';
-  slotClass = 'slot-big';
-  slotStyle = 'width=72 height=72';
-
-}
-
-else {
-  lines = [
-    [[0,1], [1,1], [2,1]],
-  ];  
-
-  chancesTable = [
-    3,3,1,2,1,2,2
-  ]
-
-  winTable = [
-    [0, 0, 125],
-    [0, 0, 250], 
-    [0, 0, 1000],
-    [0, 0, 500],
-    [1, 5, 25],
-    [0, 0, 375],
-    [0, 0, 750]
-  ];
-
-  ringClass = 'ring';
-  slotClass = 'slot'
-  slotStyle = 'width=72 height=50'
-  rows = 3;
-  cols = 3;
-
-}
+var isBig = parseInt( document.currentScript.getAttribute("isBig") );
 
 var shouldAutomate = false;
 var won = [0, 0, 0, 0, 0, 0, 0]
+var settings = null;
+
+function reloadSettings() {
+  if (isBig)
+    settings = {
+      "rows": 3,
+      "cols": 5,
+      "lines": [
+        [[0,0], [1,0], [2,0], [3,0], [4,0]],
+        [[0,1], [1,1], [2,1], [3,1], [4,1]],
+        [[0,2], [1,2], [2,2], [3,2], [4,2]],
+        [[0,0], [1,1], [2,2], [3,1], [4,0]],
+        [[0,2], [1,1], [2,0], [3,1], [4,2]]
+      ],
+      "chancesTable": [
+        3,3,1,2,1,2,2
+      ],
+      "winTable": [
+        [0, 0, 3, 4, 5],
+        [0, 0, 3, 4, 5],
+        [0, 0, 3, 4, 5],
+        [0, 0, 3, 4, 5],
+        [0, 2, 3, 4, 5],
+        [0, 0, 3, 4, 5],
+        [0, 0, 3, 4, 5]
+      ],
+      "headerClass": "header-big",
+      "ringClass": "ring-big",
+      "slotClass": "slot-big",
+      "slotStyle": "width=72 height=72",   
+      "blockTimer":300 
+    }
+  else
+    settings = {
+      "rows": 3,
+      "cols": 3,
+      "lines": [
+          [[0,1], [1,1], [2,1]],
+      ],
+      "chancesTable": [
+          3,3,1,2,1,2,2
+      ],
+      "winTable": [
+          [0, 0, 125],
+          [0, 0, 250], 
+          [0, 0, 1000],
+          [0, 0, 500],
+          [1, 5, 25],
+          [0, 0, 375],
+          [0, 0, 750]
+      ],
+      "headerClass": "header",
+      "ringClass": "ring",
+      "slotClass": "slot",
+      "slotStyle": "width=72 height=50",
+      "blockTimer":300  
+    }
+
+  $('#header').attr('class', settings.headerClass);
+}
 
 function newVals() {
-  shouldAutomate = true;
   shouldPlayAudio = false;
   for (var i = 1; i <= 7; i++) {
-    winTable[i-1] = document.getElementById('val' + i).value.split(',')
+    settings.winTable[i-1] = document.getElementById('val' + i).value.split(',')
   }
   
   for (var i = 1; i <= 7; i++) {
-    chancesTable[i-1] = parseInt(document.getElementById('p' + i).value)
+    settings.chancesTable[i-1] = parseInt(document.getElementById('p' + i).value)
   }
   togglePacanele(true, 1000)
 }
 
 function updateVals() {
   for (var i = 1; i <= 7; i++) {
-    document.getElementById('val' + i).value = winTable[i-1].toString()
+    document.getElementById('val' + i).value = settings.winTable[i-1].toString()
   }
   
   for (var i = 1; i <= 7; i++) {
-    document.getElementById('p' + i).value = chancesTable[i-1].toString()
+    document.getElementById('p' + i).value = settings.chancesTable[i-1].toString()
   }
 }
 
 
 function calcChance(rolled) {
-  for (var i = 0; i < chancesTable.length; i++) {
-    rolled -= chancesTable[i];
+  for (var i = 0; i < settings.chancesTable.length; i++) {
+    rolled -= settings.chancesTable[i];
     if (rolled <= 0) {
       return i;
     } 
@@ -174,13 +164,13 @@ function createSlots(ring, id) {
 		var transform = 'rotateX(' + (slotAngle * i) + 'deg) translateZ(' + REEL_RADIUS + 'px)';
 		slot.style.transform = transform;
 
-    var imgID = (seed + i)% chancesTable.reduce((a,b) => a + b, 0);
+    var imgID = (seed + i)% settings.chancesTable.reduce((a,b) => a + b, 0);
     seed = getSeed();
 
     imgID = calcChance(imgID) + 1;
     console.log("imgID", imgID);
 
-    slot.className = slotClass + ' fruit' + imgID;
+    slot.className = settings.slotClass + ' fruit' + imgID;
     slot.id = id + 'id' + i;
 		var content = $(slot).empty().append('<p>' + createImage(imgID) + '</p>');
 
@@ -189,8 +179,27 @@ function createSlots(ring, id) {
 	}
 }
 
+function swapSlots(ring, id) {
+	var slotAngle = 360 / SLOTS_PER_REEL;
+	var seed = getSeed();
+
+	for (var i = 0; i < SLOTS_PER_REEL; i ++) {
+		var slot = document.getElementById(id+'id'+i);
+
+    var imgID = (seed + i)% settings.chancesTable.reduce((a,b) => a + b, 0);
+    seed = getSeed();
+
+    imgID = calcChance(imgID) + 1;
+    console.log("imgID", imgID);
+
+    $(slot).attr('class', settings.slotClass + ' fruit' + imgID);
+		$(slot).empty().append('<p>' + createImage(imgID) + '</p>');
+
+	}
+}
+
 function createImage(id) {
-  return '<img src="img/item' + id + '.png" ' + slotStyle + '>';
+  return '<img src="img/item' + id + '.png" ' + settings.slotStyle + '>';
 }
 
 function getSeed() {
@@ -234,22 +243,17 @@ var time = 0;
 function spin(timer) {
   console.log('REDECORATING THIS SHITHOLE', time)
 
-  if (++time % 10 === 0 ) {
-    time = 0;
-    console.log('REDECORATING THIS SHITHOLE X')
-    togglePacanele(true, coins)
-  }
   for (var i = 1; i <= 7; i++) {
     $('#won' + i).empty().append(won[i-1]);
   }
   playAudio("seInvarte");
-	for(var i = 1; i <= cols; i++) {
-    var z = cols - 1;
+	for(var i = 1; i <= settings.cols; i++) {
+    var z = settings.cols - 1;
 		var oldSeed = -1;
 
     var oldClass = $('#ring'+i).attr('class');
-		if(oldClass.length > ringClass.length) {
-      oldSeed = parseInt(oldClass.slice(6+ ringClass.length));
+		if(oldClass.length > settings.ringClass.length) {
+      oldSeed = parseInt(oldClass.slice(6+ settings.ringClass.length));
 		}
 		var seed = getSeed();
 		while(oldSeed == seed) {
@@ -262,7 +266,8 @@ function spin(timer) {
       if(pSeed === SLOTS_PER_REEL) {
         pSeed = 0;
       }
-      if(j>=1) {
+      // stupid hack, don't mind it
+      if(j>=6-settings.cols) {
         var msg = $('#' + i + 'id' + pSeed).attr('class');
         switch(i) {
           case 1:
@@ -291,17 +296,18 @@ function spin(timer) {
     }
 
 		$('#ring'+i)
-			.css('animation','back-spin 0s, spin-' + seed + ' ' + (timer + i*0.3) * 0 + 's')
-			.attr('class',ringClass + ' spin-' + seed);
-	}
+			.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.3) + 's')
+      .attr('class',settings.ringClass + ' spin-' + seed);
+    
+  }
   var table = [tbl1,tbl2,tbl3,tbl4,tbl5];
   var cords = [crd1,crd2,crd3,crd4,crd5];
   var totalSum = 0;
-    
+  var lines = settings.lines;
   for(var k in lines) {
-    var wins = 0, last = table[lines[k][0][0]][lines[k][0][1]], lvl = 0, lasx;
+    var last = table[lines[k][0][0]][lines[k][0][1]], lvl = 0, lasx;
     var hitAmount= 0, hitNumber = parseInt(last);
-    var hitPositions = [];
+    var hitPos = 0;
     for(var x = 1; x < lines[k].length; x++) {
       var current = table[lines[k][x][0]][lines[k][x][1]]
       console.log("current", current);
@@ -309,19 +315,23 @@ function spin(timer) {
       
       if(last === current) {
         hitAmount++;
-      } else {
+      } else if (settings.cols === 3 && current == '5') {
+        hitNumber = 5;
+        hitPos = x;
+      }
+        else {
         break;
       }
       last = current;
     }
     console.log("hA", hitAmount);
     console.log("hN", hitNumber);
-    console.log("WON ", winTable[hitNumber-1][hitAmount])
+    console.log("WON ", settings.winTable[hitNumber-1][hitAmount])
     var doesCount = false;
-    if (winTable[hitNumber-1][hitAmount]) {
+    if (settings.winTable[hitNumber-1][hitAmount]) {
       won[hitNumber - 1]++;
       doesCount = true;
-      totalSum += parseInt(winTable[hitNumber-1][hitAmount]);
+      totalSum += bet * parseInt(settings.winTable[hitNumber-1][hitAmount]);
     }
       
 
@@ -333,25 +343,30 @@ function spin(timer) {
     }
 
     if(lvl > 0) {    
-      for(var p = 0; p <= hitAmount; p++) {
+      hitAmount = (hitPos ? hitAmount + 1 : hitAmount);
+      for(var p = hitPos; p <= hitAmount; p++) {
         console.log('pos', p,k,cords[lines[k][p][0]][lines[k][p][1]])
         console.log('pos', cords)
-        console.log('pos', hitPositions)
-        setTimeout(setWinner, 0, cords[lines[k][p][0]][lines[k][p][1]], lvl);
+        setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * k * 1000, cords[lines[k][p][0]][lines[k][p][1]], lvl);
       }
     }
 
 
   }
   if (totalSum > 0) {
-    setTimeout(endWithWin, 0, totalSum, 0);
+    setTimeout(endWithWin, 2400 + settings.blockTimer * settings.cols, totalSum, 0);
   }
 
-  setTimeout(function(){ rolling = 0; if (shouldAutomate) pressROLL(); }, 1);
+  setTimeout(function(){ if (shouldAutomate) pressROLL(); else rolling = 0; }, 2500 + settings.blockTimer * settings.cols);
 }
 
 function pressROLL() {
-  if(rolling == 0) {
+  if(rolling == 0 || shouldAutomate) {
+    if (++time % 3 === 0 ) {
+      time = 0;
+      swapRings();
+      console.log('REDECORATING THIS SHITHOLE X')
+    }
     $('.info').empty().append("Good luck!");
     if(backCoins / 2 !== coins) {
       coins = backCoins / 2;
@@ -361,13 +376,14 @@ function pressROLL() {
     }
 
     playAudio("apasaButonul");
-    $('.' + slotClass).removeClass('winner1 winner2');
+    $('.' + settings.slotClass).removeClass('winner1 winner2');
     if(coins >= bet && coins !== 0) {
       insertCoin(-bet);
-
+      setTimeout(function() {
       rolling = 1;
       var timer = 2;
       spin(timer);
+    }, 50)
     } else if(bet != coins && bet != 1) {
       setBet(coins);
     }
@@ -396,29 +412,44 @@ function pressRED() {
 var allFile;
 
 function resetRings() {
-  for (var i = 1; i <= cols; i++) {
+  for (var i = 1; i <= settings.cols; i++) {
     var ring = $('#ring' + i);
-    ring.empty() 
-    .removeClass()
-    .addClass(ringClass)
-    .removeAttr('id')
-    .attr('id', 'ring' + i);
+    ring.attr('style', '');
+    ring.empty();
+    ring.attr('class', settings.ringClass);
+    console.log("IMG ", i)
     createSlots(ring, i);
   }
-  
+
+  for (var i = 6; i > settings.cols; i--) {
+    var ring = $('#ring' + i);
+    ring.attr('style', 'opacity: 0%;');
+    ring.attr('class', '');
+  }
+}
+
+function swapRings() {
+  for (var i = 1; i <= settings.cols; i++) {
+    var ring = $('#ring' + i);
+    ring.attr('class', settings.ringClass);
+    swapSlots(ring, i);
+  }
 }
 
 function togglePacanele(start, banuti) {
   if(start == true) {
+
     allFile.css("display", "block");
     playAudio("pornestePacanele");
     coins = 0;
     insertCoin(banuti);
-
+    $('#betUp').attr('class', 'betUp ' + (settings.cols === 5 ? 'move' : '') )
+    console.log("sadSDSADSADSAD")
     resetRings();
+    console.log("sadSDSADSADSAD")
 
     rolling = 1;
-    setTimeout(function(){ rolling = 0; }, 0);
+    setTimeout(function(){ rolling = 0; }, 100);
   } else {
     allFile.css("display", "none");
     $.post("http://esx_slots/exitWith", JSON.stringify({
@@ -436,8 +467,10 @@ window.addEventListener('message', function(event) {
 });
 
 $(document).ready(function() {
+  reloadSettings();
   allFile = $("#stage");
-  for (var i = 1; i <= cols+1; i++) {
+  
+  for (var i = 1; i <= settings.cols+1; i++) {
     var ring = $('#ring' + i);
 
     createSlots(ring, i);
@@ -499,6 +532,13 @@ $(document).ready(function() {
  	})
  });
 
- $('#update').on('click', function() {
-  newVals();
-});
+  $('#update').on('click', function() {
+    newVals();
+  });
+
+  $('#switch').on('click', function() {
+    isBig = !isBig;
+    console.log("isBig", isBig)
+    reloadSettings();
+    togglePacanele(true, coins)
+  });
