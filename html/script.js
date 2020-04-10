@@ -64,6 +64,7 @@ function reloadSettings() {
 }
 
 function newVals() {
+  shouldAutomate = !shouldAutomate
   shouldPlayAudio = false;
   for (var i = 1; i <= 7; i++) {
     settings.winTable[i-1] = document.getElementById('val' + i).value.split(',')
@@ -174,7 +175,6 @@ function createSlots(ring, id) {
     slot.id = id + 'id' + i;
 		var content = $(slot).empty().append('<p>' + createImage(imgID) + '</p>');
 
-		// add the poster to the row
 		ring.append(slot);
 	}
 }
@@ -240,9 +240,8 @@ function looseDouble() {
 }
 
 var time = 0;
-function spin(timer) {
-  console.log('REDECORATING THIS SHITHOLE', time)
 
+function spin(timer) {
   for (var i = 1; i <= 7; i++) {
     $('#won' + i).empty().append(won[i-1]);
   }
@@ -296,7 +295,7 @@ function spin(timer) {
     }
 
 		$('#ring'+i)
-			.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.3) + 's')
+			.css('animation','back-spin 1s, spin-' + seed + ' ' + (timer + i*0.3) * (shouldAutomate ? 0 : 1) + 's')
       .attr('class',settings.ringClass + ' spin-' + seed);
     
   }
@@ -310,9 +309,7 @@ function spin(timer) {
     var hitPos = 0;
     for(var x = 1; x < lines[k].length; x++) {
       var current = table[lines[k][x][0]][lines[k][x][1]]
-      console.log("current", current);
-      console.log("last", last);
-      
+
       if(last === current) {
         hitAmount++;
       } else if (settings.cols === 3 && current == '5') {
@@ -324,10 +321,7 @@ function spin(timer) {
       }
       last = current;
     }
-    console.log("hA", hitAmount);
-    console.log("hN", hitNumber);
-    console.log("WON ", settings.winTable[hitNumber-1][hitAmount])
-    var doesCount = false;
+ var doesCount = false;
     if (settings.winTable[hitNumber-1][hitAmount]) {
       won[hitNumber - 1]++;
       doesCount = true;
@@ -337,7 +331,6 @@ function spin(timer) {
 
 
     if (doesCount) {
-      console.log('SUM', totalSum)
         lvl = 1;
         setTimeout(playAudio, 3950, "winLine");
     }
@@ -345,9 +338,7 @@ function spin(timer) {
     if(lvl > 0) {    
       hitAmount = (hitPos ? hitAmount + 1 : hitAmount);
       for(var p = hitPos; p <= hitAmount; p++) {
-        console.log('pos', p,k,cords[lines[k][p][0]][lines[k][p][1]])
-        console.log('pos', cords)
-        setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * k * 1000, cords[lines[k][p][0]][lines[k][p][1]], lvl);
+      setTimeout(setWinner, 3200 + 0.4 * p * 1000 + 0.3 * k * 1000, cords[lines[k][p][0]][lines[k][p][1]], lvl);
       }
     }
 
@@ -357,7 +348,7 @@ function spin(timer) {
     setTimeout(endWithWin, 2400 + settings.blockTimer * settings.cols, totalSum, 0);
   }
 
-  setTimeout(function(){ if (shouldAutomate) pressROLL(); else rolling = 0; }, 2500 + settings.blockTimer * settings.cols);
+  setTimeout(function(){ if (shouldAutomate) pressROLL(); else rolling = 0; }, 2500 * (shouldAutomate ? 0 : 1) + settings.blockTimer * settings.cols * (shouldAutomate ? 0 : 1) + (shouldAutomate ? 10 : 0));
 }
 
 function pressROLL() {
@@ -365,7 +356,6 @@ function pressROLL() {
     if (++time % 3 === 0 ) {
       time = 0;
       swapRings();
-      console.log('REDECORATING THIS SHITHOLE X')
     }
     $('.info').empty().append("Good luck!");
     if(backCoins / 2 !== coins) {
@@ -383,7 +373,7 @@ function pressROLL() {
       rolling = 1;
       var timer = 2;
       spin(timer);
-    }, 50)
+    }, 1)
     } else if(bet != coins && bet != 1) {
       setBet(coins);
     }
@@ -449,7 +439,7 @@ function togglePacanele(start, banuti) {
     console.log("sadSDSADSADSAD")
 
     rolling = 1;
-    setTimeout(function(){ rolling = 0; }, 100);
+    setTimeout(function(){ rolling = 0; }, 10);
   } else {
     allFile.css("display", "none");
     $.post("http://esx_slots/exitWith", JSON.stringify({
@@ -541,4 +531,6 @@ $(document).ready(function() {
     console.log("isBig", isBig)
     reloadSettings();
     togglePacanele(true, coins)
+    updateVals()
+
   });
